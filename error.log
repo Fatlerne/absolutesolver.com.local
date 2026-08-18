@@ -1,2 +1,0 @@
-2026/07/05 22:53:57 [emerg] 14140#10808: CreateFile() "C:\OSPanel\home\absolutesolver.com.local/conf/nginx.conf" failed (3: The system cannot find the path specified)
-2026/07/05 23:17:11 [emerg] 15292#15220: CreateFile() "C:\OSPanel\home\absolutesolver.com.local/conf/nginx.conf" failed (3: The system cannot find the path specified)
