@@ -244,7 +244,7 @@ I decided to post this repository to be able to recreate the site. [absolutesolv
 ```
 + .osp is used to configure a web server for openserver v 6.5.1 and higher.
 + the result folder contains all the scan responses using waymore
-+ The file oldindex.html and folder sound is an old version of the [absolutesolver.com](https://absolutesolver.com) website, downloaded from [web.arhive.org](https://web.archive.org/web/20260513225432/https://absolutesolver.com/).
++ The file oldindex.html and folder sound is an old version of the [absolutesolver.com](https://absolutesolver.com) website, downloaded from [web.archive.org](https://web.archive.org/web/20260513225432/https://absolutesolver.com/).
 + a9f3b7c2d1e4/complete.html It was found in an older version of the website via [web.archive.org](https://web.archive.org/web/20260518193607/https://absolutesolver.com/a9f3b7c2d1e4/complete.html).
 # Materials
 + Site [absolutesolver.com](https:/absolutesolver.com)
