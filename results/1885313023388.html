@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a0000">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>Sublevel Access — Restricted</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%; height: 100%;
+            background: #0a0005;
+            color: #c0c0c0;
+            font-family: "Courier New", Courier, monospace;
+            overflow-x: hidden;
+        }
+
+        .emergency-ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(ellipse at center, rgba(60, 0, 0, 0.15) 0%, transparent 70%);
+            animation: emergencyPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes emergencyPulse {
+            0%, 100% { opacity: 0.3; }
+            50%      { opacity: 0.7; }
+        }
+
+        .page-frame {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+
+        .breadcrumb {
+            font-size: 0.7rem;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a { color: #555; text-decoration: none; }
+        .breadcrumb a:hover { color: #888; }
+
+        .gate-panel {
+            text-align: center;
+            padding: 3rem 2rem;
+            border: 1px solid #331111;
+            background: rgba(20, 0, 0, 0.4);
+        }
+
+        .gate-panel h1 {
+            font-size: 1.3rem;
+            letter-spacing: 0.3em;
+            color: #ff3333;
+            margin-bottom: 0.5rem;
+        }
+
+        .gate-panel .warning-triangles {
+            font-size: 1.5rem;
+            color: #ff6600;
+            margin-bottom: 1rem;
+        }
+
+        .gate-panel .keycard-msg {
+            font-size: 0.85rem;
+            color: #aa4444;
+            letter-spacing: 0.15em;
+            margin-bottom: 2rem;
+        }
+
+        .code-input-group {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-digit {
+            width: 44px;
+            height: 56px;
+            background: #0a0005;
+            border: 1px solid #331111;
+            color: #ff3333;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1.5rem;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .code-digit:focus {
+            border-color: #ff3333;
+            box-shadow: 0 0 8px rgba(255, 51, 51, 0.3);
+        }
+
+        .submit-btn {
+            display: inline-block;
+            padding: 0.6rem 2.5rem;
+            background: transparent;
+            border: 1px solid #ff3333;
+            color: #ff3333;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #ff3333;
+            color: #0a0005;
+        }
+
+        .gate-feedback {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            min-height: 1.5em;
+        }
+
+        .feedback-denied { color: #ff3333; }
+        .feedback-alert { color: #ff6600; }
+
+        .denied-flash {
+            animation: deniedFlash 0.4s ease-out;
+        }
+
+        @keyframes deniedFlash {
+            0%   { background: rgba(255, 0, 0, 0.25); }
+            100% { background: transparent; }
+        }
+
+        .chamber-content {
+            display: none;
+            text-align: left;
+        }
+
+        .chamber-content.visible {
+            display: block;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .chamber-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #331111;
+        }
+
+        .chamber-header h2 {
+            font-size: 1.1rem;
+            letter-spacing: 0.25em;
+            color: #ff3333;
+            margin-bottom: 0.5rem;
+        }
+
+        .chamber-status {
+            font-size: 0.8rem;
+            color: #aa3333;
+        }
+
+        .chamber-status span { display: block; margin: 0.3rem 0; }
+
+        .playback-area {
+            border: 1px solid #1a1a2e;
+            background: rgba(5, 5, 10, 0.8);
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+            min-height: 320px;
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: #888;
+        }
+
+        .playback-header {
+            color: #555;
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #111;
+        }
+
+        .playback-line {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .playback-line.visible { opacity: 1; }
+
+        .playback-line.breach { color: #ff3333; font-weight: bold; }
+        .playback-line.corrupt { color: #ff6600; }
+        .playback-line.solver { color: #FFD700; }
+
+        .solver-notice {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border: 1px solid #FFD700;
+            background: rgba(255, 215, 0, 0.03);
+            color: #FFD700;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+
+        .solver-notice.visible { opacity: 1; }
+
+        .heavy-corrupt {
+            animation: heavyCorrupt 0.3s infinite;
+        }
+
+        @keyframes heavyCorrupt {
+            0%   { filter: none; transform: none; }
+            20%  { filter: hue-rotate(90deg) brightness(1.3); transform: translateX(2px) skewX(1deg); }
+            40%  { filter: hue-rotate(180deg) brightness(0.8); transform: translateX(-3px) skewX(-2deg); }
+            60%  { filter: hue-rotate(270deg) brightness(1.5); transform: translateX(1px) skewX(1.5deg); }
+            80%  { filter: hue-rotate(45deg) brightness(0.9); transform: translateX(-1px) skewX(-1deg); }
+            100% { filter: none; transform: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="crt-overlay"></div>
+<div class="crt-vignette"></div>
+<div class="emergency-ambient"></div>
+
+<div class="page-frame">
+    <div class="breadcrumb">
+        <a href="https://absolutesolver.com/cflab-7a2d/index.html">FACILITY DASHBOARD</a> / SUBLEVEL ACCESS
+    </div>
+
+    <!-- KEYCARD GATE -->
+    <div class="gate-panel" id="gatePanel">
+        <div class="warning-triangles">⚠ ⚠ ⚠</div>
+        <h1>SUBLEVEL ACCESS — RESTRICTED</h1>
+        <div class="keycard-msg">KEYCARD AUTHORIZATION REQUIRED</div>
+
+        <div class="code-input-group" id="codeGroup">
+            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="off">
+            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="off">
+            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="off">
+            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="off">
+            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="off">
+            <input class="code-digit" type="text" maxlength="1" inputmode="numeric" autocomplete="off">
+        </div>
+
+        <button class="submit-btn" id="submitBtn">AUTHORIZE</button>
+
+        <div class="gate-feedback" id="gateFeedback"></div>
+    </div>
+
+    <!-- CHAMBER CONTENT -->
+    <div class="chamber-content" id="chamberContent">
+        <div class="chamber-header">
+            <h2>SUBLEVEL 7 — SOLVER CONTAINMENT CHAMBER</h2>
+            <div class="chamber-status">
+                <span>CONTAINMENT STATUS: <strong style="color:#ff3333">BREACHED</strong></span>
+                <span>LAST CONTAINMENT INTEGRITY: <strong style="color:#ff3333">0%</strong></span>
+            </div>
+        </div>
+
+        <div class="playback-area" id="playbackArea">
+            <div class="playback-header">[VIDEO PLAYBACK — Camera 7A — Containment Chamber]</div>
+            <div id="playbackLines">
+                <div class="playback-line" data-delay="800">[TIMESTAMP: 3044-09-15 03:42:07]</div>
+                <div class="playback-line" data-delay="1600">Camera 7A — Containment Chamber</div>
+                <div class="playback-line" data-delay="2800">&nbsp;</div>
+                <div class="playback-line" data-delay="3400">03:42:07 — Entity-AS containment field nominal.</div>
+                <div class="playback-line" data-delay="4600">03:42:12 — Subject CYN-001 enters chamber. No authorization on record.</div>
+                <div class="playback-line" data-delay="6000">03:42:15 — CYN-001 places hand on containment glass.</div>
+                <div class="playback-line" data-delay="7200">03:42:16 — Entity-AS responds. Containment field fluctuates.</div>
+                <div class="playback-line breach" data-delay="8400">03:42:18 — CYN-001 is smiling.</div>
+                <div class="playback-line breach" data-delay="9600">03:42:19 — Containment field: 0%</div>
+                <div class="playback-line breach" data-delay="10400">03:42:19 — BREACH DETECTED</div>
+                <div class="playback-line corrupt" data-delay="11400">03:42:20 — [VISUAL FEED CORRUPTED]</div>
+                <div class="playback-line solver" data-delay="12600">03:42:21 — Audio transcript: "Finally. A body that fits."</div>
+                <div class="playback-line corrupt" data-delay="14000">03:42:22 — All facility cameras: OFFLINE</div>
+                <div class="playback-line breach" data-delay="15200">03:42:23 — Personnel lifesigns: 0</div>
+                <div class="playback-line solver" data-delay="16800">03:42:24 — <img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" style="width:18px;height:auto;vertical-align:middle;"></div>
+            </div>
+        </div>
+
+        <div class="solver-notice" id="solverNotice">
+            <img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" draggable="false" style="width:60px;height:auto;filter:drop-shadow(0 0 10px rgba(255,215,0,0.6));"><br><br>
+            You're quite persistent. I like that.<br>
+            Keep digging. The truth is buried with the family.
+        </div>
+    </div>
+</div>
+
+<script src="https://absolutesolver.com/assets/solver-core.js"></script>
+<script>
+(function () {
+    var attempts = 0;
+    var maxWrongAttempts = 3;
+    var unlocked = false;
+
+    var digits = document.querySelectorAll(".code-digit");
+    var submitBtn = document.getElementById("submitBtn");
+    var feedback = document.getElementById("gateFeedback");
+    var gatePanel = document.getElementById("gatePanel");
+    var chamberContent = document.getElementById("chamberContent");
+
+    if (typeof SolverCore !== "undefined") {
+        SolverCore.trackVisit("cflab-sublevel");
+        SolverCore.solverWarn();
+        SolverCore.solverMessage("Sublevel access page. Authorization attempts are logged.");
+    }
+
+    digits.forEach(function (input, i) {
+        input.addEventListener("input", function () {
+            this.value = this.value.replace(/[^0-9]/g, "");
+            if (this.value && i < digits.length - 1) {
+                digits[i + 1].focus();
+            }
+        });
+        input.addEventListener("keydown", function (e) {
+            if (e.key === "Backspace" && !this.value && i > 0) {
+                digits[i - 1].focus();
+            }
+            if (e.key === "Enter") {
+                submitBtn.click();
+            }
+        });
+    });
+
+    submitBtn.addEventListener("click", function () {
+        if (unlocked) return;
+
+        var code = "";
+        digits.forEach(function (d) { code += d.value; });
+
+        if (code.length < 6) {
+            feedback.textContent = "INCOMPLETE CODE";
+            feedback.className = "gate-feedback feedback-denied";
+            return;
+        }
+
+        if (typeof SolverCore !== "undefined" && SolverCore.checkSublevelPin(code)) {
+            unlocked = true;
+            feedback.textContent = "ACCESS GRANTED";
+            feedback.className = "gate-feedback";
+            feedback.style.color = "#33aa33";
+
+            setTimeout(function () {
+                gatePanel.style.display = "none";
+                chamberContent.classList.add("visible");
+                startPlayback();
+            }, 1000);
+        } else {
+            attempts++;
+            feedback.className = "gate-feedback feedback-denied";
+
+            gatePanel.classList.add("denied-flash");
+            setTimeout(function () { gatePanel.classList.remove("denied-flash"); }, 400);
+
+            if (attempts >= maxWrongAttempts) {
+                feedback.innerHTML = "SECURITY ALERT: Unauthorized access attempts logged.<br>Solver containment status: <strong>BREACHED</strong>.";
+                feedback.className = "gate-feedback feedback-alert";
+            } else {
+                feedback.textContent = "ACCESS DENIED";
+            }
+
+            digits.forEach(function (d) { d.value = ""; });
+            digits[0].focus();
+        }
+    });
+
+    function startPlayback() {
+        var lines = document.querySelectorAll(".playback-line");
+        var totalDelay = 0;
+
+        lines.forEach(function (line) {
+            var delay = parseInt(line.getAttribute("data-delay"), 10) || 0;
+            totalDelay = Math.max(totalDelay, delay);
+            setTimeout(function () {
+                line.classList.add("visible");
+            }, delay);
+        });
+
+        setTimeout(function () {
+            startCorruption();
+        }, totalDelay + 2000);
+    }
+
+    function startCorruption() {
+        var playbackArea = document.getElementById("playbackArea");
+        playbackArea.classList.add("heavy-corrupt");
+
+        setTimeout(function () {
+            playbackArea.classList.remove("heavy-corrupt");
+
+            var notice = document.getElementById("solverNotice");
+            notice.classList.add("visible");
+
+            if (typeof SolverCore !== "undefined") {
+                SolverCore.solverMessage("⊗ You're quite persistent. I like that. Keep digging. ⊗");
+            }
+        }, 3000);
+    }
+
+    if (digits[0]) digits[0].focus();
+})();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a007280e2f1bb917',t:'MTc3OTU3MTc3MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

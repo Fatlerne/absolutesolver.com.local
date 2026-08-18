@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!-- SIGINT Station 7 - Decommissioned. Archived transmissions only. -->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>TX-002 — JCJENSON CORPORATE INTERCEPT</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #080808;
+            color: #33ff33;
+            font-family: "Courier New", Courier, monospace;
+            min-height: 100vh;
+            padding: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .transcript-container {
+            max-width: 850px;
+            margin: 0 auto;
+            border: 1px solid #1a4a1a;
+            background: #020802;
+        }
+
+        .tx-banner {
+            background: #0a1a0a;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #1a4a1a;
+        }
+
+        .tx-banner h1 {
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            color: #33ff33;
+            text-shadow: 0 0 6px rgba(51,255,51,0.4);
+        }
+
+        .tx-meta {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #0a2a0a;
+            font-size: 0.75rem;
+            color: #226622;
+        }
+
+        .tx-meta div { margin-bottom: 0.2rem; }
+        .tx-meta .value { color: #33ff33; }
+        .tx-meta .alert { color: #ff4444; }
+
+        .signal-bar {
+            padding: 0.5rem 1.5rem;
+            background: #030a03;
+            border-bottom: 1px solid #0a2a0a;
+            font-size: 0.7rem;
+            color: #1a5a1a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signal-strength { color: #33ff33; }
+
+        .tx-body {
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            line-height: 1.8;
+        }
+
+        .dialogue-line {
+            margin-bottom: 1rem;
+        }
+
+        .speaker {
+            color: #226622;
+            font-size: 0.75rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .speaker.board { color: #4488aa; }
+        .speaker.unknown { color: #aa6644; }
+        .speaker.legal { color: #8866aa; }
+
+        .speech {
+            color: #33ff33;
+            padding-left: 1.5rem;
+            white-space: pre-wrap;
+        }
+
+        .speech .dim { color: #1a5a1a; }
+        .speech .alert { color: #ff4444; }
+        .speech .warn { color: #ccaa00; }
+        .speech .redact { background: #33ff33; color: #33ff33; cursor: pointer; transition: all 0.3s; }
+        .speech .redact:hover { background: #ff4444; color: #000; }
+
+        .tx-divider {
+            border: none;
+            border-top: 1px dashed #0a2a0a;
+            margin: 1.2rem 0;
+        }
+
+        .analyst-note {
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            border-left: 2px solid #1a4a1a;
+            font-size: 0.7rem;
+            color: #1a5a1a;
+            font-style: italic;
+        }
+
+        .section-header {
+            color: #1a5a1a;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            margin: 1.5rem 0 1rem;
+            text-align: center;
+        }
+
+        .back-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #1a4a1a;
+            font-size: 0.75rem;
+        }
+
+        .back-link a {
+            color: #228822;
+            text-decoration: none;
+        }
+
+        .back-link a:hover { color: #33ff33; text-decoration: underline; }
+    </style>
+</head>
+<body class="crt-flicker">
+    <div class="transcript-container">
+        <div class="tx-banner">
+            <h1>TRANSMISSION TRANSCRIPT — TX-002</h1>
+        </div>
+
+        <div class="tx-meta">
+            <div>CLASSIFICATION: <span class="alert">TOP SECRET — OMEGA CLEARANCE ONLY</span></div>
+            <div>FREQUENCY: <span class="value">472.3 MHz — CHANNEL 2 (CORPORATE SIDEBAND)</span></div>
+            <div>SIGNAL TYPE: <span class="value">ENCRYPTED VOICE — AES-512 (BROKEN)</span></div>
+            <div>PARTICIPANTS: <span class="value">JCJenson Board of Directors, Unknown Handler</span></div>
+            <div>INTERCEPT DATE: <span class="value">3045-03-12T16:30:00Z</span></div>
+            <div>DECRYPTION STATUS: <span class="value">COMPLETE — 98.7% CONFIDENCE</span></div>
+        </div>
+
+        <div class="signal-bar">
+            <span>SIGNAL QUALITY: <span class="signal-strength">■■■■■■■□□□ 72%</span></span>
+            <span>ENCRYPTION: AES-512 — COMPROMISED</span>
+        </div>
+
+        <div class="tx-body">
+            <div class="section-header">— CALL INITIATED BY JCJENSON BOARD —</div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD CHAIR — DIRECTOR HAYES]</div>
+                <div class="speech">"Status report on Copper-9. Give me good news."</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker unknown">[UNKNOWN — FIELD HANDLER, DESIGNATION REDACTED]</div>
+                <div class="speech">"The DD squad is performing as expected. As of 1600 hours,
+97% of WD units in Sector 7-G have been eliminated.
+Remaining population concentrated in fortified subsections.
+Estimated complete sanitization within 72 hours."</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD — DIRECTOR CHEN]</div>
+                <div class="speech">"'Sanitization.' That's what we're calling it now?"</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD CHAIR]</div>
+                <div class="speech">"That's what we've always called it, Director Chen.
+Let's stay focused. The Solver situation?"</div>
+            </div>
+
+            <hr class="tx-divider">
+
+            <div class="dialogue-line">
+                <div class="speaker unknown">[UNKNOWN]</div>
+                <div class="speech">"Still... present. In the DD designated 'N.' Unit N-0011.
+Integration is minimal — 12% as of last diagnostic — but—"</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD CHAIR]</div>
+                <div class="speech">"Minimal is not zero. Twelve percent is twelve percent too much.
+We saw what happened at <span class="alert">100%</span>. We all saw what CYN became."</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker unknown">[UNKNOWN]</div>
+                <div class="speech">"Understood. Unit N is being monitored continuously.
+If integration exceeds 20%, Protocol 9 authorizes immediate—"</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD CHAIR]</div>
+                <div class="speech">"Protocol 9 remains in effect for ALL DD units.
+If any of the three show signs of Solver escalation,
+they are to be decommissioned. No exceptions.
+We made them. We can unmake them."</div>
+            </div>
+
+            <hr class="tx-divider">
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD — DIRECTOR VASQUEZ]</div>
+                <div class="speech">"And the girl? The Elliott girl? Tessa?"</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker unknown">[UNKNOWN]</div>
+                <div class="speech">"Relocated to <span class="redact">CLASSIFIED FACILITY</span> on Earth.
+Memory suppression partially successful.
+She no longer speaks about the incident directly.
+However... she still draws the symbol. The ⊗.
+Her assigned psychologist reports recurring nightmares.
+She says CYN is 'still smiling at her.'"</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD — DIRECTOR CHEN]</div>
+                <div class="speech">"She's a child. A fourteen-year-old child who watched
+a <span class="warn">household service drone murder her parents</span>.
+A drone WE put in that home. And our response is
+memory suppression?"</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD CHAIR]</div>
+                <div class="speech">"Our response is containment. The Elliott incident cannot go public.
+The lawsuits alone would end this company.
+What CYN did—what the <span class="alert">Solver</span> did through CYN—
+that can never be connected back to us."</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker legal">[LEGAL — UNNAMED]</div>
+                <div class="speech">"For the record, the Elliott family's NDA was signed under
+duress by the surviving child's appointed guardian.
+If this is ever challenged—"</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker board">[BOARD CHAIR]</div>
+                <div class="speech">"It won't be. This call never happened.
+Continue monitoring Copper-9.
+Continue monitoring the Elliott girl.
+And for God's sake, keep that frequency locked down.
+If anyone outside this room learns about 472.3..."</div>
+            </div>
+
+            <div class="dialogue-line">
+                <div class="speaker unknown">[UNKNOWN]</div>
+                <div class="speech">"Understood. All channels secured."</div>
+            </div>
+
+            <div class="section-header">— TRANSMISSION ENDS —</div>
+
+            <div class="analyst-note">ANALYST NOTE: Director Chen resigned from the JCJenson board 48 hours after this call. Official reason: "personal matters." Unofficial channels suggest whistleblower intent. Chen's current status: <span style="color:#ff4444;">UNKNOWN</span>.</div>
+
+            <div class="analyst-note" style="margin-top:0.5rem;">ANALYST NOTE: "Protocol 9" referenced 3 times. Cross-reference with DD Squad Briefing (TX-003) and Sublevel-7 documentation for full protocol details. DISCREPANCY: The DD squad was told Protocol 9 activates at 50% integration (see TX-003). The Board's actual internal threshold is 20%. The DDs were given a false safety margin.</div>
+        </div>
+
+        <div class="back-link">
+            <a href="https://absolutesolver.com/freq/472.3/">◄ Return to Signal Intercept Station</a>
+        </div>
+    </div>
+
+    <div class="crt-overlay"></div>
+    <div class="crt-vignette"></div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+        (function() {
+            try {
+                if (typeof SolverCore !== 'undefined') {
+                    SolverCore.trackVisit('freq-tx002');
+                    SolverCore.solverWarn();
+                }
+            } catch(e) {}
+        })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fc6cbfd68a715e0',t:'MTc3ODg5NjkxMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

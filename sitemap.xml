@@ -1,0 +1,45 @@
+<!-- JCJenson Automated Sitemap Generator v2.1 -->
+<!--
+ WARNING: Some entries may reference deprecated or restricted resources 
+-->
+<urlset>
+<url>
+<loc>https://absolutesolver.com/</loc>
+<priority>1.0</priority>
+</url>
+<url>
+<loc>https://absolutesolver.com/jcjenson/</loc>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://absolutesolver.com/jcjenson/careers.html</loc>
+<priority>0.6</priority>
+</url>
+<!--
+ NOTICE: The following entries were auto-generated and may contain errors 
+-->
+<url>
+<loc>https://absolutesolver.com/products/worker-drone</loc>
+<priority>0.5</priority>
+</url>
+<url>
+<loc>
+https://absolutesolver.com/products/disassembly-drone
+</loc>
+<priority>0.5</priority>
+</url>
+<url>
+<loc>https://absolutesolver.com/about/copper-9</loc>
+<priority>0.4</priority>
+</url>
+<!--
+ ERROR: Crawler detected anomalous paths during last scan 
+-->
+<!--
+ <url><loc>https://absolutesolver.com/cflab-7a2d/</loc></url> 
+-->
+<!--
+ <url><loc>https://absolutesolver.com/63796e2f/</loc></url> 
+-->
+<!-- SCAN TERMINATED: UNAUTHORIZED ACCESS DETECTED -->
+</urlset>

@@ -1,0 +1,36 @@
+# JCJenson (in SPAAAAACE!) Automated Web Crawler Directive
+# Document Classification: INTERNAL USE ONLY
+# Last Updated: 3047-03-15
+# Maintained by: IT Department, Copper-9 Division
+
+User-agent: *
+Allow: /
+
+# Standard corporate paths
+Disallow: /jcjenson/internal/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /staging/
+
+# Research division
+Disallow: /cflab-7a2d/sublevel/
+Disallow: /research/
+Disallow: /biotech/
+
+# DO NOT INDEX - Legal hold
+Disallow: /reg/cyn.html
+Disallow: /classified/
+
+# Signal intercept archives
+Disallow: /freq/
+
+# AUTOMATED NOTE: The following paths have been flagged by security
+# Disallow: /0x7368/
+# Disallow: /a9f3b7c2d1e4/
+# STATUS: PATHS NOT FOUND - POSSIBLE DATA CORRUPTION
+
+# Sitemap
+Sitemap: https://absolutesolver.com/sitemap.xml
+
+# If you're reading this, you're already closer than you think.
+# 0x636F707065722D39 

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<!--
+    JCJenson (in SPAAAAACE!) Corporate Website
+    Revision: 4.2.1 | Build: 3047-03-14
+
+    Employee Portal: /jcjenson/internal/ - Authorized Personnel Only
+
+    TODO: Remove legacy SSO endpoint before Q3 launch
+    TODO: Update product imagery for DD-series refresh
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JCJenson - Solving Humanity and Everything Else. Leading robotics, AI, and planetary management solutions.">
+    <meta name="author" content="JCJenson Corporate Communications">
+    <meta name="theme-color" content="#08080e">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>JCJenson (in SPAAAAACE!) — Solving Humanity... and Everything Else™</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Segoe UI", -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #08080e;
+            color: #b8b8c4;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(8, 8, 14, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(123, 27, 45, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+            height: 56px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+
+        .nav-brand img {
+            height: 28px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #8a8a96;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #e8e8f0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: #7B1B2D;
+            transform: scaleX(0);
+            transition: transform 0.25s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-links .nav-internal {
+            color: #555;
+        }
+
+        .hero {
+            margin-top: 56px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, rgba(123, 27, 45, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-logo-wrap {
+            position: relative;
+            cursor: default;
+            user-select: none;
+        }
+
+        .hero-logo-wrap img {
+            max-width: min(600px, 85vw);
+            height: auto;
+            display: block;
+        }
+
+        .solver-ghost {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+            opacity: 0;
+        }
+
+        .solver-ghost img {
+            width: clamp(100px, 15vw, 220px);
+            height: auto;
+            display: block;
+        }
+
+        .hero-logo-wrap.hover-active .solver-ghost {
+            animation: solverFlash 0.15s ease-out 3;
+        }
+
+        @keyframes solverFlash {
+            0%   { opacity: 0; }
+            50%  { opacity: 0.2; }
+            100% { opacity: 0; }
+        }
+
+        .hero-tagline {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            color: #6a6a78;
+            max-width: 500px;
+            font-weight: 300;
+            letter-spacing: 0.04em;
+        }
+
+        .hero-cta {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.65rem 2rem;
+            background: #7B1B2D;
+            color: #e8e8f0;
+            text-decoration: none;
+            border: 1px solid #7B1B2D;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .btn-primary:hover {
+            background: #9a2440;
+            border-color: #9a2440;
+            box-shadow: 0 0 20px rgba(123, 27, 45, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 0.65rem 2rem;
+            background: transparent;
+            color: #8a8a96;
+            text-decoration: none;
+            border: 1px solid #2a2a35;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: color 0.25s, border-color 0.25s;
+        }
+
+        .btn-secondary:hover {
+            color: #e8e8f0;
+            border-color: #4a4a58;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #7B1B2D, transparent);
+            margin: 0 auto;
+        }
+
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #e8e8f0;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .section-header p {
+            margin-top: 0.75rem;
+            color: #6a6a78;
+            font-size: 0.95rem;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: #0e0e16;
+            border: 1px solid #1a1a25;
+            padding: 2rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7B1B2D, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover {
+            border-color: #2a2a35;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1.25rem;
+            opacity: 0.5;
+        }
+
+        .product-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e8e8f0;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-card p {
+            font-size: 0.88rem;
+            color: #7a7a88;
+            line-height: 1.75;
+        }
+
+        .product-card .product-tag {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border: 1px solid #1a1a25;
+            color: #7B1B2D;
+            font-family: "Courier New", monospace;
+        }
+
+        .stats-bar {
+            background: #0a0a12;
+            border-top: 1px solid #1a1a25;
+            border-bottom: 1px solid #1a1a25;
+            padding: 3.5rem 2rem;
+        }
+
+        .stats-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            text-align: center;
+        }
+
+        .stat h3 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #e8e8f0;
+        }
+
+        .stat p {
+            font-size: 0.75rem;
+            color: #5a5a68;
+            margin-top: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .careers-teaser {
+            text-align: center;
+            padding: 5rem 2rem;
+            border-top: 1px solid #1a1a25;
+        }
+
+        .careers-teaser h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8e8f0;
+            letter-spacing: 0.04em;
+        }
+
+        .careers-teaser p {
+            margin-top: 0.75rem;
+            color: #6a6a78;
+            font-size: 0.95rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .careers-teaser .btn-primary {
+            margin-top: 2rem;
+        }
+
+        footer {
+            background: #06060a;
+            color: #3a3a48;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid #12121a;
+        }
+
+        footer a {
+            color: #7B1B2D;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #9a2440;
+        }
+
+        .footer-links {
+            margin-top: 0.75rem;
+        }
+
+        .footer-links a {
+            margin: 0 0.75rem;
+        }
+
+        .footer-revision {
+            margin-top: 1rem;
+            font-size: 0.65rem;
+            color: #1e1e28;
+            font-family: "Courier New", monospace;
+        }
+
+        @media (max-width: 640px) {
+            .nav-links a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.78rem;
+            }
+            .hero {
+                padding: 5rem 1.5rem 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="https://absolutesolver.com/jcjenson/" class="nav-brand">
+            <img src="https://absolutesolver.com/assets/jcjenson-logo.png" alt="JCJenson (in SPAAAAACE!)">
+        </a>
+        <ul class="nav-links">
+            <li><a href="https://absolutesolver.com/jcjenson/">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="https://absolutesolver.com/jcjenson/careers.html">Careers</a></li>
+            <li><a href="#investors">Investors</a></li>
+            <li><a href="#contact" class="nav-internal">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-logo-wrap" id="heroLogoWrap">
+            <div class="solver-ghost" aria-hidden="true"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" draggable="false"></div>
+            <img src="https://absolutesolver.com/assets/jcjenson-logo.png" alt="JCJenson (in SPAAAAACE!)" draggable="false">
+        </div>
+        <p class="hero-tagline">Solving Humanity... and Everything Else&trade;</p>
+        <div class="hero-cta">
+            <a href="#products" class="btn-primary">Our Solutions</a>
+            <a href="https://absolutesolver.com/jcjenson/careers.html" class="btn-secondary">Join Us</a>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Products -->
+    <section class="section" id="products">
+        <div class="section-header">
+            <h2>Our Products</h2>
+            <p>Industry-leading autonomous solutions for every environment&mdash;from orbital stations to planetary cores.</p>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-icon">&#x2699;</div>
+                <h3>Worker Drone Series</h3>
+                <p>Versatile autonomous units designed for complete operational independence. Our WD-series drones handle all labor tasks so you don't have to think about the workforce at all. They don't need to think, either.</p>
+                <span class="product-tag">WD-Series &bull; Fully Autonomous</span>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">&#x2620;</div>
+                <h3>Disassembly Drone Program</h3>
+                <p>Rapid-response asset management for legacy deployments. When worker units reach end-of-lifecycle, our DD-series ensures clean, efficient, and <em>permanent</em> decommissioning. Zero survivors&mdash;zero liability.</p>
+                <span class="product-tag">DD-Series &bull; Containment Class</span>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">&#x2622;</div>
+                <h3>Planetary Core Management</h3>
+                <p>Harnessing planetary-scale energy systems with our proprietary integration framework. Our core containment technology allows us to unlock what lies beneath&mdash;even things that were never meant to be unlocked.</p>
+                <span class="product-tag">PCM-7 &bull; Omega Clearance</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats-bar" id="investors">
+        <div class="stats-inner">
+            <div class="stat">
+                <h3>2,400+</h3>
+                <p>Planetary Deployments</p>
+            </div>
+            <div class="stat">
+                <h3>7.2B</h3>
+                <p>Autonomous Units Produced</p>
+            </div>
+            <div class="stat">
+                <h3>99.97%</h3>
+                <p>Containment Success Rate</p>
+            </div>
+            <div class="stat">
+                <h3>0</h3>
+                <p>Reported Incidents*</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Careers Teaser -->
+    <section class="careers-teaser" id="contact">
+        <h2>Shape the Future of Automation</h2>
+        <p>We're always looking for bright minds willing to push the boundaries of what's possible. Relocation packages available for off-world postings.</p>
+        <a href="https://absolutesolver.com/jcjenson/careers.html" class="btn-primary">View Open Positions</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 3047 JCJenson (in SPAAAAACE!) &mdash; All Rights Reserved</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <p class="footer-revision">Document revision: cflab-7a2d</p>
+    </footer>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+    (function() {
+        try {
+            if (typeof SolverCore !== 'undefined') {
+                SolverCore.solverWarn();
+                SolverCore.trackVisit('jcjenson');
+            }
+        } catch(e) {}
+
+        var wrap = document.getElementById('heroLogoWrap');
+        var hoverTimer = null;
+        wrap.addEventListener('mouseenter', function() {
+            hoverTimer = setTimeout(function() {
+                wrap.classList.add('hover-active');
+                setTimeout(function() {
+                    wrap.classList.remove('hover-active');
+                }, 450);
+            }, 5000);
+        });
+        wrap.addEventListener('mouseleave', function() {
+            clearTimeout(hoverTimer);
+            wrap.classList.remove('hover-active');
+        });
+    })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

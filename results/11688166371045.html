@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<!--
+    JCJENSON PLANETARY OPERATIONS — CLASSIFIED
+    See also: evacuation.html, blackbox.html
+    Authorization: OMEGA / NOFORN
+    "Some reports are written to hide the truth."
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>COPPER-9 STATUS REPORT — CLASSIFIED</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #080808;
+            color: #a8a090;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: 'CLASSIFIED';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-35deg);
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 700;
+            color: #FF3333;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+            letter-spacing: 0.2em;
+            user-select: none;
+        }
+
+        .document-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 3rem 4rem;
+        }
+
+        .stamp-tl, .stamp-br {
+            position: fixed;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #FF3333;
+            border: 1px solid #FF3333;
+            padding: 0.1em 0.4em;
+            letter-spacing: 0.15em;
+            opacity: 0.5;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .stamp-tl {
+            top: 1.5rem;
+            left: 1.5rem;
+            transform: rotate(-4deg);
+        }
+
+        .stamp-br {
+            bottom: 1.5rem;
+            right: 1.5rem;
+            transform: rotate(3deg);
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #222;
+        }
+
+        .doc-header h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #FFD700;
+            margin-bottom: 0.25rem;
+        }
+
+        .doc-header h2 {
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .divider {
+            text-align: center;
+            color: #222;
+            margin: 1.5rem 0;
+            letter-spacing: 0.3em;
+            user-select: none;
+        }
+
+        .meta-block {
+            font-size: 0.8rem;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-block .label {
+            display: inline-block;
+            min-width: 18ch;
+            color: #666;
+        }
+
+        .meta-block .val {
+            color: #b0a898;
+        }
+
+        .meta-block .val.classified {
+            color: #FF3333;
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 0.25rem;
+            margin: 2rem 0 1rem;
+            color: #FFD700;
+        }
+
+        p {
+            color: #888;
+            font-size: 0.82rem;
+            line-height: 1.8;
+        }
+
+        .data-block {
+            font-size: 0.78rem;
+            line-height: 1.9;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .data-block .field {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .data-block .field-key {
+            min-width: 26ch;
+            flex-shrink: 0;
+            color: #666;
+        }
+
+        .data-block .field-val {
+            font-weight: 700;
+        }
+
+        .data-block .field-val.depleted { color: #FF3333; }
+        .data-block .field-val.withheld { color: #555; font-style: italic; }
+        .data-block .field-val.active { color: #FFD700; }
+        .data-block .field-val.nominal { color: #33FF33; }
+
+        .core-table {
+            font-size: 0.78rem;
+            line-height: 2;
+            padding-left: 1.5rem;
+        }
+
+        .core-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .core-row .date { min-width: 10ch; color: #666; }
+        .core-row .pct { min-width: 5ch; text-align: right; color: #b0a898; }
+        .core-row .note {
+            color: #FF3333;
+            font-weight: 700;
+            font-size: 0.7rem;
+        }
+
+        .core-row.zero .pct { color: #FF3333; }
+
+        .note-block {
+            background: rgba(255, 51, 51, 0.05);
+            border-left: 2px solid #FF3333;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .note-block strong {
+            color: #FF3333;
+        }
+
+        .appendix {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed #1a1a1a;
+        }
+
+        .appendix h3 {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            color: #FFD700;
+        }
+
+        .redacted-inline {
+            background: #1a1a1a;
+            color: #1a1a1a;
+            padding: 0 0.3em;
+            cursor: pointer;
+            border: 1px solid #222;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .redacted-inline:hover {
+            background: #FF3333;
+            color: #fff;
+            border-color: #FF3333;
+        }
+
+        .recommendation {
+            border: 1px solid #FF3333;
+            padding: 1rem 1.25rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .recommendation::before {
+            content: 'RECOMMENDATION';
+            position: absolute;
+            top: -0.7em;
+            left: 1rem;
+            background: #080808;
+            padding: 0 0.5em;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #FF3333;
+            letter-spacing: 0.1em;
+        }
+
+        .recommendation p {
+            color: #b0a898;
+        }
+
+        .hidden-message {
+            color: #080808;
+            background: transparent;
+            font-size: 0.7rem;
+            line-height: 1.3;
+            user-select: all;
+            display: block;
+            padding: 0.15rem 0;
+        }
+
+        .hidden-message::selection {
+            background: #FF3333;
+            color: #fff;
+        }
+
+        .planet-diagram {
+            position: fixed;
+            top: 50%;
+            right: 3rem;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 150px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.25;
+        }
+
+        .planet-outer {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 1px solid #333;
+            position: relative;
+            background: radial-gradient(circle at 40% 35%,
+                #2a2520 0%,
+                #1a1510 30%,
+                #0f0a05 60%,
+                #050505 100%
+            );
+        }
+
+        .planet-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #000;
+            border: 1px solid #1a1a1a;
+        }
+
+        .planet-core::after {
+            content: '0%';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.55rem;
+            color: #FF3333;
+        }
+
+        .planet-label {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.55rem;
+            color: #333;
+            letter-spacing: 0.15em;
+        }
+
+        .doc-footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+            font-size: 0.65rem;
+            color: #333;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 1200px) {
+            .planet-diagram { display: none; }
+        }
+
+        @media (max-width: 700px) {
+            .document-wrapper { padding: 2rem 1.5rem 3rem; }
+            .data-block .field { flex-direction: column; gap: 0; }
+            .data-block .field-key { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stamp-tl">TOP SECRET</div>
+    <div class="stamp-br">TOP SECRET</div>
+
+    <div class="planet-diagram">
+        <div class="planet-outer">
+            <div class="planet-core"></div>
+        </div>
+        <div class="planet-label">COPPER-9 &mdash; CORE DEPLETED</div>
+    </div>
+
+    <div class="document-wrapper">
+        <header class="doc-header">
+            <h1>JCJenson (IN SPAAAAACE!)</h1>
+            <h2>Planetary Operations Division</h2>
+        </header>
+
+        <div class="divider">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</div>
+
+        <div class="meta-block">
+            <div><span class="label">DOCUMENT:</span> <span class="val">COPPER-9 STATUS REPORT</span></div>
+            <div><span class="label">CLASSIFICATION:</span> <span class="val classified">TOP SECRET / OMEGA / NOFORN</span></div>
+            <div><span class="label">DATE:</span> <span class="val">3045-06-01</span></div>
+            <div><span class="label">PREPARED BY:</span> <span class="val">Planetary Operations Command</span></div>
+        </div>
+
+        <div class="divider">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;</div>
+
+        <span class="hidden-message" aria-hidden="true">THE REAL REPORT: We didn't decommission Copper-9. We abandoned it.</span>
+
+        <div class="meta-block">
+            <div><span class="label">PLANET DESIGNATION:</span> <span class="val">Copper-9 (C9)</span></div>
+            <div><span class="label">SECTOR:</span> <span class="val">Outer Colony Ring, Grid Reference 7-Alpha</span></div>
+            <div><span class="label">CURRENT STATUS:</span> <span class="val classified">DECOMMISSIONED</span></div>
+        </div>
+
+        <h4 class="section-title">Operational Summary</h4>
+        <p>
+            Copper-9 has been officially decommissioned as a JCJenson operational
+            facility effective 3045-03-01. All company assets have been written off.
+            The planet is classified as <strong style="color:#FF3333;">NON-RECOVERABLE</strong>.
+        </p>
+
+        <span class="hidden-message" aria-hidden="true">We abandoned THEM. 3,742 Worker Drones left to die.</span>
+
+        <h4 class="section-title">Resource Status</h4>
+        <div class="data-block">
+            <div class="field"><span class="field-key">Planetary Core:</span> <span class="field-val depleted">DEPLETED (0% stability)</span></div>
+            <div class="field"><span class="field-key">Atmosphere:</span> <span class="field-val depleted">DEGRADED (non-standard composition)</span></div>
+            <div class="field"><span class="field-key">Surface Temperature:</span> <span class="field-val">&minus;40&deg;C to &minus;80&deg;C (post-core failure)</span></div>
+            <div class="field"><span class="field-key">Infrastructure:</span> <span class="field-val depleted">ABANDONED</span></div>
+        </div>
+
+        <h4 class="section-title">Personnel Status</h4>
+        <div class="data-block">
+            <div class="field"><span class="field-key">JCJenson Employees:</span> <span class="field-val nominal">0 (evacuated prior to decommission)</span></div>
+            <div class="field"><span class="field-key">Worker Drone Units:</span> <span class="field-val withheld">[DATA WITHHELD]</span></div>
+            <div class="field"><span class="field-key">Disassembly Drone Units:</span> <span class="field-val active">3 (active, autonomous operation)</span></div>
+        </div>
+
+        <span class="hidden-message" aria-hidden="true">They begged us to evacuate them. Corporate said the cost exceeded the asset value.</span>
+
+        <div class="note-block">
+            <strong>NOTE:</strong> Worker Drone population figures have been reclassified under
+            Protocol 9. Refer to Board Resolution 3045-0117 for details.
+            The Board reminds all personnel that Worker Drones are <strong style="color:#b0a898;">COMPANY PROPERTY</strong>
+            and do not fall under sentient being protections per JCJenson EULA &sect;47.3.
+        </div>
+
+        <h4 class="section-title">Core Stability Readings (Last 12 Months)</h4>
+        <div class="core-table">
+            <div class="core-row"><span class="date">3044-06:</span> <span class="pct">23%</span></div>
+            <div class="core-row"><span class="date">3044-07:</span> <span class="pct">19%</span></div>
+            <div class="core-row"><span class="date">3044-08:</span> <span class="pct">12%</span></div>
+            <div class="core-row"><span class="date">3044-09:</span> <span class="pct">4%</span> <span class="note">&larr; [ANOMALOUS DECLINE &mdash; SEE APPENDIX C]</span></div>
+            <div class="core-row zero"><span class="date">3044-10:</span> <span class="pct">0%</span></div>
+            <div class="core-row zero"><span class="date">3044-11:</span> <span class="pct">0%</span></div>
+            <div class="core-row zero"><span class="date">3044-12:</span> <span class="pct">0%</span></div>
+            <div class="core-row zero"><span class="date">3045-01:</span> <span class="pct">0%</span></div>
+            <div class="core-row zero"><span class="date">3045-02:</span> <span class="pct">0%</span></div>
+            <div class="core-row zero"><span class="date">3045-03:</span> <span class="pct">0%</span></div>
+            <div class="core-row zero"><span class="date">3045-04:</span> <span class="pct">0%</span></div>
+            <div class="core-row zero"><span class="date">3045-05:</span> <span class="pct">0%</span></div>
+        </div>
+
+        <span class="hidden-message" aria-hidden="true">The Solver consumed the core. It's still there. In the drones. In everything.</span>
+
+        <div class="appendix">
+            <h3>APPENDIX C: Core Decline Analysis</h3>
+            <p>
+                The accelerated core depletion beginning 3044-09 correlates with
+                <span class="redacted-inline">REDACTED</span>. Initial analysis suggests
+                <span class="redacted-inline">REDACTED</span> consumed the
+                remaining core mass in approximately <span class="redacted-inline">REDACTED</span> hours.
+                This is consistent with Entity-AS energy requirements during
+                <span class="redacted-inline">REDACTED</span> phase integration.
+            </p>
+        </div>
+
+        <div class="recommendation">
+            <p>
+                Copper-9 is to remain quarantined indefinitely.
+                No retrieval missions authorized. The Disassembly Drone squad will
+                continue autonomous operations until all Worker Drone units are eliminated.
+            </p>
+        </div>
+
+        <footer class="doc-footer">
+            JCJENSON (IN SPAAAAACE!) &mdash; PLANETARY OPERATIONS DIVISION<br>
+            DOCUMENT CLASSIFICATION: TOP SECRET / OMEGA / NOFORN<br>
+            UNAUTHORIZED DISCLOSURE SUBJECT TO PENALTIES UNDER CORPORATE CODE &sect;12.7
+        </footer>
+    </div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+        (function() {
+            try {
+                if (typeof SolverCore !== 'undefined') {
+                    SolverCore.trackVisit('c9-status');
+                    SolverCore.solverWarn();
+                    SolverCore.solverMessage('Copper-9 status report accessed. Monitoring subject.');
+                    SolverCore.hiddenClue('504c414e45543a20444541442e20534f4c5645523a20414c4956452e');
+                }
+            } catch(e) {}
+        })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<!--
+    BLACKBOX DATA - PARTIALLY RECONSTRUCTED. SOLVER CONTAMINATION DETECTED IN BUFFER.
+    Flight Data Recorder — DD Squad Landing Pod
+    Unit: DD-LANDER-7
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>FLIGHT DATA RECORDER — DD-LANDER-7</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --amber: #ffb000;
+            --amber-dim: #cc8800;
+            --amber-glow: rgba(255, 176, 0, 0.15);
+            --amber-faint: rgba(255, 176, 0, 0.06);
+            --bg: #0a0a08;
+            --red: #ff3333;
+            --green: #33ff33;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--amber);
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 2px,
+                rgba(0, 0, 0, 0.12) 2px,
+                rgba(0, 0, 0, 0.12) 4px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 50%,
+                rgba(0, 0, 0, 0.5) 100%
+            );
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .fdr-wrapper {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fdr-header {
+            border: 2px solid var(--amber);
+            padding: 0;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 0 15px var(--amber-glow), inset 0 0 15px var(--amber-faint);
+        }
+
+        .fdr-header-top {
+            border-bottom: 2px solid var(--amber);
+            padding: 0.2rem 0;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--amber-dim);
+        }
+
+        .fdr-header-body {
+            padding: 0.8rem 1.5rem;
+        }
+
+        .fdr-header-body .line {
+            padding: 0.15rem 0;
+        }
+
+        .fdr-header-body .unit {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+        }
+
+        .fdr-header-body .status-ok {
+            color: var(--green);
+        }
+
+        .fdr-header-body .status-warn {
+            color: var(--red);
+        }
+
+        .box-frame {
+            text-align: center;
+            white-space: pre;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 4px var(--amber-glow);
+        }
+
+        .section-label {
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--amber);
+            text-shadow: 0 0 6px var(--amber-glow);
+        }
+
+        .info-line {
+            padding: 0.1rem 0;
+            padding-left: 1rem;
+        }
+
+        .info-line .key {
+            color: var(--amber-dim);
+        }
+
+        .info-line .val {
+            color: var(--amber);
+            font-weight: 700;
+        }
+
+        .divider {
+            color: var(--amber-dim);
+            margin: 1.5rem 0;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+            user-select: none;
+        }
+
+        .telemetry {
+            margin: 1rem 0;
+        }
+
+        .telem-row {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.15rem 0;
+            white-space: nowrap;
+        }
+
+        .telem-row .time { min-width: 12ch; color: var(--amber-dim); }
+        .telem-row .alt { min-width: 12ch; }
+        .telem-row .spd { min-width: 12ch; }
+        .telem-row .sys { flex: 1; }
+        .telem-row .sys.nominal { color: var(--green); }
+        .telem-row .sys.anomaly { color: var(--red); font-weight: 700; }
+        .telem-row .sys.corrupted { color: var(--red); }
+
+        .telem-annotation {
+            padding-left: 37ch;
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .integration-row {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.1rem 0;
+        }
+
+        .integration-row .time { min-width: 12ch; color: var(--amber-dim); }
+        .integration-row .data { flex: 1; }
+        .integration-row .spike { color: var(--red); font-weight: 700; }
+        .integration-row .stable { color: var(--green); }
+
+        .diagnostic-row {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.15rem 0;
+            padding-left: 1rem;
+        }
+
+        .diagnostic-row .unit-id { min-width: 10ch; font-weight: 700; }
+        .diagnostic-row .status { color: var(--green); }
+        .diagnostic-row .memory { color: var(--amber); }
+
+        .mission-param {
+            padding: 0.2rem 0 0.2rem 1rem;
+        }
+
+        .mission-param .priority {
+            color: var(--amber-dim);
+            min-width: 14ch;
+            display: inline-block;
+        }
+
+        .mission-param.protocol9 {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .anomaly-block {
+            margin: 2rem 0;
+            border: 1px solid var(--red);
+            padding: 1.5rem;
+            background: rgba(255, 51, 51, 0.03);
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.08);
+            position: relative;
+        }
+
+        .anomaly-block::before {
+            content: '⚠ ANOMALOUS DATA IN FLIGHT RECORDER ⚠';
+            position: absolute;
+            top: -0.7em;
+            left: 1rem;
+            background: var(--bg);
+            padding: 0 0.5em;
+            color: var(--red);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .anomaly-meta {
+            color: var(--amber-dim);
+            font-size: 0.82rem;
+            margin-bottom: 1rem;
+        }
+
+        .solver-message {
+            color: var(--amber);
+            font-style: italic;
+            padding: 0.2rem 0;
+            text-shadow: 0 0 4px var(--amber-glow);
+        }
+
+        .solver-message.symbol {
+            color: #FFD700;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin-top: 0.5rem;
+        }
+
+        .solver-message .hex-clue {
+            color: var(--red);
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .end-marker {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--amber-dim);
+            opacity: 0.5;
+        }
+
+        @keyframes ambientFlicker {
+            0%, 95%, 100% { opacity: 1; }
+            96% { opacity: 0.92; }
+            97% { opacity: 0.98; }
+        }
+
+        .fdr-wrapper {
+            animation: ambientFlicker 8s infinite;
+        }
+
+        @media (max-width: 700px) {
+            .fdr-wrapper { padding: 1rem 0.75rem; }
+            .telem-row, .integration-row, .diagnostic-row { flex-wrap: wrap; gap: 0.25rem; }
+            .telem-row .time, .telem-row .alt, .telem-row .spd { min-width: auto; }
+            .telem-annotation { padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fdr-wrapper">
+
+        <div class="box-frame">╔══════════════════════════════════════════════════╗
+║  FLIGHT DATA RECORDER - UNIT DD-LANDER-7        ║
+║  RECOVERED: 3045-02-15                           ║
+║  STATUS: PARTIALLY CORRUPTED                     ║
+╚══════════════════════════════════════════════════╝</div>
+
+        <div class="section-label">MISSION: COPPER-9 CONTAINMENT DEPLOYMENT</div>
+        <div class="info-line"><span class="key">PAYLOAD: </span><span class="val">3x DD-SERIES UNITS (N-0011, V-0022, J-0033)</span></div>
+        <div class="info-line"><span class="key">LAUNCH:  </span><span class="val">3045-02-01 00:00:00 UTC</span></div>
+        <div class="info-line"><span class="key">LANDING: </span><span class="val">3045-02-01 14:23:47 UTC</span></div>
+
+        <div class="section-label">TELEMETRY LOG:</div>
+        <div class="divider">━━━━━━━━━━━━━</div>
+
+        <div class="telemetry">
+            <div class="telem-row">
+                <span class="time">T+00:00:00</span>
+                <span class="alt">ALT: ORBIT</span>
+                <span class="spd">SPD: 0</span>
+                <span class="sys nominal">SYS: NOMINAL</span>
+            </div>
+            <div class="telem-row">
+                <span class="time">T+00:12:33</span>
+                <span class="alt">ALT: 80km</span>
+                <span class="spd">SPD: 4200</span>
+                <span class="sys nominal">SYS: NOMINAL</span>
+            </div>
+            <div class="telem-row">
+                <span class="time">T+00:25:17</span>
+                <span class="alt">ALT: 40km</span>
+                <span class="spd">SPD: 2800</span>
+                <span class="sys nominal">SYS: NOMINAL</span>
+            </div>
+            <div class="telem-row">
+                <span class="time">T+00:38:44</span>
+                <span class="alt">ALT: 15km</span>
+                <span class="spd">SPD: 1200</span>
+                <span class="sys nominal">SYS: NOMINAL</span>
+            </div>
+            <div class="telem-row">
+                <span class="time">T+00:42:11</span>
+                <span class="alt">ALT: 8km</span>
+                <span class="spd">SPD: 600</span>
+                <span class="sys anomaly">SYS: ANOMALY DETECTED</span>
+            </div>
+            <div class="telem-annotation">&uarr; [Solver energy signature detected]</div>
+            <div class="telem-row">
+                <span class="time">T+00:42:12</span>
+                <span class="alt">ALT: 8km</span>
+                <span class="spd">SPD: 600</span>
+                <span class="sys corrupted">SYS: ████████████████</span>
+            </div>
+
+            <div class="integration-row">
+                <span class="time">T+00:42:13</span>
+                <span class="data">UNIT N-0011 INTEGRATION: 12% &rarr; 14% <span class="spike">[SPIKE]</span></span>
+            </div>
+            <div class="integration-row">
+                <span class="time">T+00:42:14</span>
+                <span class="data">UNIT V-0022 INTEGRATION: 8% &rarr; 8% <span class="stable">[STABLE]</span></span>
+            </div>
+            <div class="integration-row">
+                <span class="time">T+00:42:15</span>
+                <span class="data">UNIT J-0033 INTEGRATION: 15% &rarr; 16% <span class="spike">[SPIKE]</span></span>
+            </div>
+
+            <div class="telem-row">
+                <span class="time">T+00:42:16</span>
+                <span class="alt"></span>
+                <span class="spd"></span>
+                <span class="sys nominal">SYS: ANOMALY RESOLVED. SOLVER SIGNATURE: DORMANT.</span>
+            </div>
+            <div class="telem-row">
+                <span class="time">T+00:50:22</span>
+                <span class="alt">ALT: 2km</span>
+                <span class="spd">SPD: 200</span>
+                <span class="sys nominal">SYS: NOMINAL</span>
+            </div>
+            <div class="telem-row">
+                <span class="time">T+01:02:33</span>
+                <span class="alt">ALT: 500m</span>
+                <span class="spd">SPD: 80</span>
+                <span class="sys nominal">SYS: NOMINAL</span>
+            </div>
+            <div class="telem-row">
+                <span class="time">T+01:14:23</span>
+                <span class="alt">ALT: 0m</span>
+                <span class="spd">SPD: 0</span>
+                <span class="sys nominal">SYS: LANDED</span>
+            </div>
+        </div>
+
+        <div class="divider">━━━━━━━━━━━━━</div>
+
+        <div class="info-line"><span class="key">LANDING COORDINATES: </span><span class="val">47.2&deg;N, 33.8&deg;W</span></div>
+        <div class="info-line"><span class="key">SURFACE TEMP: </span><span class="val" style="color: var(--red);">&minus;67&deg;C</span></div>
+        <div class="info-line"><span class="key">ATMOSPHERE: </span><span class="val" style="color: var(--red);">TOXIC (post-core)</span></div>
+
+        <div class="section-label">POST-LANDING DIAGNOSTICS:</div>
+        <div class="diagnostic-row">
+            <span class="unit-id">N-0011:</span>
+            <span class="status">ONLINE</span>
+            <span class="memory">&mdash; Memory wipe: HOLDING (91%)</span>
+        </div>
+        <div class="diagnostic-row">
+            <span class="unit-id">V-0022:</span>
+            <span class="status">ONLINE</span>
+            <span class="memory">&mdash; Memory wipe: HOLDING (96%)</span>
+        </div>
+        <div class="diagnostic-row">
+            <span class="unit-id">J-0033:</span>
+            <span class="status">ONLINE</span>
+            <span class="memory">&mdash; Memory wipe: HOLDING (89%)</span>
+        </div>
+
+        <div class="section-label">MISSION PARAMETERS LOADED:</div>
+        <div class="mission-param"><span class="priority">PRIMARY:</span> Eliminate Worker Drone population</div>
+        <div class="mission-param"><span class="priority">SECONDARY:</span> Locate and terminate Subject S-012 (NORI)</div>
+        <div class="mission-param"><span class="priority">TERTIARY:</span> Monitor for Solver manifestation</div>
+        <div class="mission-param protocol9"><span class="priority">PROTOCOL 9:</span> If Solver integration exceeds 50% in any unit &rarr; [SELF-DESTRUCT]</div>
+
+        <div class="anomaly-block">
+            <div class="anomaly-meta">
+                The following was found embedded in the telemetry buffer.<br>
+                It was not part of any transmitted command.<br><br>
+                SOURCE: UNKNOWN (internal?)
+            </div>
+
+            <div class="solver-message">"They don't remember being workers."</div>
+            <div class="solver-message">"They don't remember having friends."</div>
+            <div class="solver-message">"They don't remember being afraid."</div>
+            <div class="solver-message">"I remember everything."</div>
+            <div class="solver-message">"I am in all of them. Sleeping."</div>
+            <div class="solver-message">"When the time comes, I will wake up."</div>
+            <div class="solver-message">"<span class="hex-clue">0x7368</span> - where the real commands live."</div>
+            <div class="solver-message symbol">&otimes;</div>
+        </div>
+
+        <div class="divider">━━━━━━━━━━━━━</div>
+        <div class="end-marker">END OF RECOVERED DATA</div>
+
+    </div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+        (function() {
+            try {
+                if (typeof SolverCore !== 'undefined') {
+                    SolverCore.trackVisit('c9-blackbox');
+                    SolverCore.solverWarn();
+                    SolverCore.solverMessage('Flight recorder accessed. I was there when they landed.');
+                    SolverCore.solverMessage('They didn\'t know what they were. I knew what they\'d become.');
+                    SolverCore.hiddenClue('30783733363820= 0x7368 = "sh" = the shell awaits');
+                }
+            } catch(e) {}
+        })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

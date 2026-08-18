@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!-- Cross-reference: Sublevel-7 Subject CYN-001, Copper-9 Protocol 9 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="classification" content="OMEGA">
+    <meta name="signal-freq" content="472.3">
+    <link rel="icon" type="image/png" href="/1764476138510.png">
+    <link rel="stylesheet" href="/assets/glitch.css">
+    <title>JCJENSON — CLIENT SERVICES — ELLIOT FILE</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #1a1c18;
+            color: #c8c4a8;
+            font-family: "Courier New", Courier, monospace;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .document-container {
+            max-width: 820px;
+            margin: 0 auto;
+            border: 2px solid #6b6b4e;
+            padding: 2.5rem 2rem;
+            position: relative;
+            background: #1e2018;
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #6b6b4e;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            color: #a0a080;
+            margin-bottom: 0.3rem;
+        }
+
+        .header h2 {
+            font-size: 0.85rem;
+            color: #888870;
+            letter-spacing: 0.15em;
+        }
+
+        .header .file-ref {
+            font-size: 0.8rem;
+            color: #7a7a60;
+            margin-top: 0.5rem;
+        }
+
+        .classification {
+            display: inline-block;
+            border: 2px solid #c44;
+            color: #c44;
+            padding: 0.15em 0.6em;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            margin-top: 0.8rem;
+        }
+
+        .field { margin-bottom: 0.4rem; }
+
+        .label {
+            color: #888870;
+            display: inline;
+        }
+
+        .value {
+            color: #d4d0b0;
+            display: inline;
+        }
+
+        .indent {
+            padding-left: 2rem;
+            color: #b0ac90;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px dashed #4a4a36;
+            margin: 1.5rem 0;
+        }
+
+        .section-title {
+            color: #a0a080;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.8rem;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .content-block {
+            color: #b0ac90;
+            white-space: pre-wrap;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        .terminated {
+            color: #ff4444;
+            font-weight: bold;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 4px rgba(255,50,50,0.3);
+        }
+
+        .classified-inline {
+            color: #c44;
+            font-weight: bold;
+        }
+
+        .child-services {
+            border-left: 3px solid #555540;
+            padding-left: 1.2rem;
+            margin: 1rem 0;
+            color: #b0ac90;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        .child-services .quote-label {
+            color: #888870;
+            margin-bottom: 0.3rem;
+        }
+
+        .handwritten-note {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #4a4a36;
+            background: rgba(40,38,30,0.6);
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-style: italic;
+            color: #c0b880;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            transform: rotate(-0.8deg);
+            position: relative;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        }
+
+        .handwritten-note::before {
+            content: "INTERNAL NOTE (handwritten):";
+            display: block;
+            font-family: "Courier New", Courier, monospace;
+            font-style: normal;
+            font-size: 0.7rem;
+            color: #666650;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .cross-ref {
+            color: #7a9a7a;
+            margin-top: 1rem;
+        }
+
+        .cross-ref a {
+            color: #88bb88;
+            text-decoration: none;
+        }
+
+        .cross-ref a:hover {
+            text-decoration: underline;
+            color: #aaddaa;
+        }
+
+        .nav-bar {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #6b6b4e;
+            font-size: 0.85rem;
+        }
+
+        .nav-bar a {
+            color: #88bb88;
+            text-decoration: none;
+            margin: 0 0.3rem;
+        }
+
+        .nav-bar a:hover {
+            color: #aaddaa;
+            text-decoration: underline;
+        }
+
+        .nav-bar a.active {
+            color: #d4d0b0;
+            border-bottom: 1px solid #d4d0b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container static-noise">
+        <div class="header">
+            <h1>JCJENSON — CLIENT SERVICES DIVISION</h1>
+            <h2>— HOUSEHOLD ACCOUNT FILE —</h2>
+            <div class="file-ref">FILE: ELLIOT FAMILY — PREMIUM HOUSEHOLD ACCOUNT</div>
+            <div class="classification">CLASSIFIED — OMEGA CLEARANCE</div>
+        </div>
+
+        <div class="field"><span class="label">ACCOUNT HOLDER: </span><span class="value">James Elliot</span></div>
+
+        <hr class="section-divider">
+
+        <div class="section-title">HOUSEHOLD MEMBERS</div>
+        <div class="indent">— James Elliot (Father)</div>
+        <div class="indent">— <span class="redacted">Name Redacted</span> Elliot (Mother)</div>
+        <div class="indent">— Tessa Elliot (Daughter, age 14)</div>
+
+        <hr class="section-divider">
+
+        <div class="section-title">SERVICE DRONES ASSIGNED</div>
+        <div class="indent">— CYN (Unit CYN-001) — Primary Household Assistant</div>
+        <div class="indent">— N (Unit N-0011) — General Service</div>
+        <div class="indent">— V (Unit V-0022) — General Service</div>
+        <div class="indent">— J (Unit J-0033) — General Service / Coordination</div>
+        <div class="field"><span class="label">SERVICE PERIOD: </span><span class="value">3043-01 to 3044-09</span></div>
+        <div class="field"><span class="label">SERVICE TYPE: </span><span class="value">Premium Household Package (4-unit)</span></div>
+
+        <hr class="section-divider">
+
+        <div class="field"><span class="label">ACCOUNT STATUS: </span><span class="terminated">████ TERMINATED ████</span></div>
+
+        <hr class="section-divider">
+
+        <div class="section-title">INCIDENT REPORT</div>
+        <div class="content-block"><span class="classified-inline">[CLASSIFIED — OMEGA CLEARANCE]</span>
+Date of incident: 3044-09-15
+Nature: <span class="redacted">REDACTED</span>
+Casualties: <span class="redacted">REDACTED</span>
+Survivor(s): Tessa Elliot (relocated)
+Drone Status: UNRECOVERABLE</div>
+
+        <hr class="section-divider">
+
+        <div class="section-title">NOTES FROM CHILD SERVICES</div>
+        <div class="child-services">
+            <div class="quote-label">Interview transcript excerpt:</div>
+"Tessa hasn't spoken since the incident. She draws the same
+symbol over and over. A circle with an X through it.
+She says 'Cyn is still smiling.'"
+        </div>
+
+        <div class="handwritten-note">
+We did this. We put that THING in their home.
+And now we're covering it up. God help us all.
+        </div>
+
+        <hr class="section-divider">
+
+        <div class="cross-ref">CROSS-REFERENCES: <a href="cyn.html">CYN-001</a>, <a href="s001.html">S-001 (N)</a>, <a href="s002.html">S-002 (V)</a>, <a href="s003.html">S-003 (J)</a></div>
+
+        <div class="nav-bar">
+            <a href="cyn.html" class="nav-arrow">◄ Previous</a> |
+            <a href="s001.html">[S-001]</a>
+            <a href="s002.html">[S-002]</a>
+            <a href="s003.html">[S-003]</a>
+            <a href="cyn.html">[CYN]</a>
+            <a href="elliot.html" class="active">[ELLIOT]</a>
+            | <span style="color:#6b6b4e;">Next ►</span>
+        </div>
+    </div>
+
+    <div class="crt-overlay"></div>
+    <div class="crt-vignette"></div>
+
+    <script src="/assets/solver-core.js"></script>
+    <script>
+        (function() {
+            try {
+                if (typeof SolverCore !== 'undefined') {
+                    SolverCore.trackVisit('reg-elliot');
+                    SolverCore.solverWarn();
+                }
+            } catch(e) {}
+        })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"5d8e135db6d34292aa9c5e4020c05017","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--
+    Facility network last synchronized: NEVER. Connection to JCJenson mainframe: SEVERED.
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>JCJenson Sublevel-7 — Facility Dashboard</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%; height: 100%;
+            background: #0a0a0f;
+            color: #c0c0c0;
+            font-family: "Courier New", Courier, monospace;
+            overflow-x: hidden;
+        }
+
+        .facility-frame {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            border-left: 1px solid #1a1a2e;
+            border-right: 1px solid #1a1a2e;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .fluorescent {
+            animation: fluorescent 8s infinite;
+        }
+
+        @keyframes fluorescent {
+            0%, 100% { filter: brightness(1); }
+            3%       { filter: brightness(1.4); }
+            4%       { filter: brightness(0.9); }
+            5%       { filter: brightness(1.3); }
+            6%       { filter: brightness(1); }
+            45%      { filter: brightness(1); }
+            46%      { filter: brightness(1.5); }
+            46.5%    { filter: brightness(0.85); }
+            47%      { filter: brightness(1.6); }
+            47.5%    { filter: brightness(1); }
+            70%      { filter: brightness(1); }
+            71%      { filter: brightness(1.2); }
+            71.5%    { filter: brightness(1); }
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #1a1a2e;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            letter-spacing: 0.35em;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        header .subdivision {
+            font-size: 0.75rem;
+            color: #555;
+            letter-spacing: 0.15em;
+        }
+
+        .status-dashboard {
+            border: 1px solid #1a1a2e;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background: rgba(10, 10, 20, 0.6);
+        }
+
+        .status-dashboard h2 {
+            font-size: 0.85rem;
+            color: #555;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #111;
+            font-size: 0.85rem;
+        }
+
+        .status-row:last-child { border-bottom: none; }
+
+        .status-label { color: #666; }
+
+        .status-value { text-align: right; }
+
+        .status-compromised {
+            color: #ff3333;
+            font-weight: bold;
+            animation: statusGlitch 5s infinite;
+        }
+
+        .status-failed { color: #ff3333; }
+        .status-zero { color: #ff6600; }
+        .status-dim { color: #444; }
+
+        @keyframes statusGlitch {
+            0%, 100% { opacity: 1; transform: none; }
+            15%      { opacity: 1; transform: none; }
+            16%      { opacity: 0.7; transform: translateX(3px) skewX(2deg); text-shadow: -2px 0 #33ff33, 2px 0 #ff3333; }
+            17%      { opacity: 1; transform: none; text-shadow: none; }
+            55%      { opacity: 1; transform: none; }
+            56%      { opacity: 0.8; transform: translateX(-2px); text-shadow: 1px 0 #ff3333; }
+            57%      { opacity: 1; transform: none; text-shadow: none; }
+            80%      { opacity: 1; transform: none; }
+            81%      { opacity: 0.6; transform: translateX(4px) skewX(-3deg); text-shadow: -3px 0 #33ff33, 3px 0 #ff3333; }
+            82.5%    { opacity: 1; transform: none; text-shadow: none; }
+        }
+
+        .nav-panel {
+            border: 1px solid #1a1a2e;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background: rgba(10, 10, 20, 0.6);
+        }
+
+        .nav-panel h2 {
+            font-size: 0.85rem;
+            color: #555;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .nav-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 0.5rem;
+            border-bottom: 1px solid #111;
+            transition: background 0.2s;
+        }
+
+        .nav-item:last-child { border-bottom: none; }
+        .nav-item:hover { background: rgba(255, 255, 255, 0.02); }
+
+        .nav-item a {
+            color: #8888cc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-item a:hover { color: #aaaaee; }
+
+        .nav-item .nav-tag {
+            font-size: 0.7rem;
+            padding: 0.15em 0.5em;
+            letter-spacing: 0.08em;
+        }
+
+        .tag-accessible { color: #33aa33; border: 1px solid #33aa33; }
+        .tag-archived { color: #555; border: 1px solid #333; }
+        .tag-keycard { color: #ffaa00; border: 1px solid #ffaa00; }
+        .tag-offline { color: #ff3333; border: 1px solid #ff3333; }
+
+        .audio-ref {
+            font-size: 0.65rem;
+            color: #222;
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #0f0f18;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #1a1a2e;
+            font-size: 0.65rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="crt-overlay"></div>
+<div class="crt-vignette"></div>
+
+<div class="facility-frame fluorescent">
+    <header>
+        <h1 class="glitch-text" data-text="JCJENSON SUBLEVEL-7">JCJENSON SUBLEVEL-7</h1>
+        <div class="subdivision">A Subdivision of JCJenson Applied Sciences</div>
+    </header>
+
+    <section class="status-dashboard">
+        <h2>Facility Status Overview</h2>
+        <div class="status-row">
+            <span class="status-label">FACILITY STATUS</span>
+            <span class="status-value status-compromised" id="statusLine">████ COMPROMISED ████</span>
+        </div>
+        <div class="status-row">
+            <span class="status-label">CONTAINMENT</span>
+            <span class="status-value status-failed">FAILED</span>
+        </div>
+        <div class="status-row">
+            <span class="status-label">PERSONNEL</span>
+            <span class="status-value status-zero">0 ACTIVE</span>
+        </div>
+        <div class="status-row">
+            <span class="status-label">LAST SIGN-IN</span>
+            <span class="status-value status-dim">3045-01-15 03:47:22</span>
+        </div>
+    </section>
+
+    <nav class="nav-panel">
+        <h2>Navigation</h2>
+        <div class="nav-item">
+            <a href="log.html">Experiment Logs</a>
+            <span class="nav-tag tag-accessible">ACCESSIBLE</span>
+        </div>
+        <div class="nav-item">
+            <a href="subjects.html">Subject Database</a>
+            <span class="nav-tag tag-accessible">ACCESSIBLE</span>
+        </div>
+        <div class="nav-item">
+            <a href="#">Level 1-6 Archives</a>
+            <span class="nav-tag tag-archived">[ARCHIVED]</span>
+        </div>
+        <div class="nav-item">
+            <a href="sublevel/">Sublevel Access</a>
+            <span class="nav-tag tag-keycard">[KEYCARD REQUIRED]</span>
+        </div>
+        <div class="nav-item">
+            <a href="#">Emergency Protocols</a>
+            <span class="nav-tag tag-offline">[OFFLINE]</span>
+        </div>
+    </nav>
+
+    <div class="audio-ref">[ ambient: mechanical hum — facility ventilation loop ]</div>
+
+    <footer>
+        JCJENSON SUBLEVEL-7 &bull; APPLIED SCIENCES DIVISION &bull; ALL ACCESS LOGGED
+    </footer>
+</div>
+
+<script src="https://absolutesolver.com/assets/solver-core.js"></script>
+<script>
+(function () {
+    if (typeof SolverCore !== "undefined") {
+        SolverCore.trackVisit("cflab");
+        SolverCore.solverWarn();
+        SolverCore.solverMessage("Facility breach detected. Containment integrity: 0%.");
+    }
+
+    var statusEl = document.getElementById("statusLine");
+    if (!statusEl) return;
+
+    var original = statusEl.textContent;
+    function randomGlitch() {
+        if (Math.random() < 0.4 && typeof SolverCore !== "undefined") {
+            SolverCore.glitchElement(statusEl, 400);
+        }
+        var next = 3000 + Math.random() * 7000;
+        setTimeout(randomGlitch, next);
+    }
+    randomGlitch();
+
+    var compromisedEls = document.querySelectorAll(".status-compromised, .status-failed");
+    setInterval(function () {
+        compromisedEls.forEach(function (el) {
+            if (Math.random() < 0.15) {
+                SolverCore.glitchElement(el, 300);
+            }
+        });
+    }, 4000);
+})();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1}" crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2470d3eaf1c5527',t:'MTc4NTYxMDQ3MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+

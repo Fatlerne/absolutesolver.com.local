@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<!--
+    DOCUMENT MANAGEMENT SYSTEM v4.7 - JCJenson Internal Use Only
+    Classification: TOP SECRET / OMEGA
+    Access Log: All views are recorded.
+    
+    WARNING: Unauthorized distribution of classified materials
+    is punishable under Corporate Security Act 3041, Section 14.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#08080e">
+    <link rel="icon" type="image/png" href="/1764476138510.png">
+    <link rel="stylesheet" href="/assets/glitch.css">
+    <title>Internal Documents — JCJenson DMS</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Segoe UI", -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #08080e;
+            color: #b8b8c4;
+            min-height: 100vh;
+            display: flex;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 270px;
+            background: #0a0a12;
+            border-right: 1px solid #1a1a25;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            padding: 0 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-brand img {
+            height: 22px;
+            width: auto;
+        }
+
+        .sidebar-brand-label {
+            padding: 0 1.25rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #4a4a58;
+            letter-spacing: 0.08em;
+        }
+
+        .sidebar-sub {
+            padding: 0 1.25rem;
+            font-size: 0.62rem;
+            color: #3a3a48;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1.5rem;
+            font-family: "Courier New", monospace;
+        }
+
+        .sidebar-section {
+            padding: 0 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #4a4a58;
+            margin-bottom: 0.6rem;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section li {
+            margin-bottom: 0.15rem;
+        }
+
+        .sidebar-section a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.82rem;
+            color: #7a7a88;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background 0.15s, color 0.15s;
+            border-left: 2px solid transparent;
+        }
+
+        .sidebar-section a:hover,
+        .sidebar-section a.active {
+            background: rgba(123, 27, 45, 0.1);
+            color: #e8e8f0;
+            border-left-color: #7B1B2D;
+        }
+
+        .sidebar-section .doc-id {
+            font-family: "Courier New", monospace;
+            font-size: 0.68rem;
+            color: #4a4a58;
+        }
+
+        .sidebar-classification {
+            padding: 0 1.25rem;
+            margin-top: auto;
+        }
+
+        .sidebar-classification .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            background: rgba(123, 27, 45, 0.15);
+            border: 1px solid rgba(123, 27, 45, 0.35);
+            border-radius: 2px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #7B1B2D;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: "Courier New", monospace;
+        }
+
+        .main {
+            margin-left: 270px;
+            flex: 1;
+            padding: 2rem 2.5rem 6rem;
+            max-width: 920px;
+            position: relative;
+        }
+
+        .main-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #1a1a25;
+        }
+
+        .main-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #e8e8f0;
+        }
+
+        .main-header p {
+            margin-top: 0.4rem;
+            font-size: 0.82rem;
+            color: #5a5a68;
+        }
+
+        .breadcrumb {
+            font-size: 0.75rem;
+            color: #4a4a58;
+            margin-bottom: 0.75rem;
+        }
+
+        .breadcrumb a {
+            color: #7B1B2D;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover { color: #9a2440; }
+
+        .memo {
+            background: #0e0e16;
+            border: 1px solid #1a1a25;
+            border-radius: 4px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memo-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.2rem 1rem;
+            font-size: 0.82rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #1a1a25;
+        }
+
+        .memo-header .label {
+            color: #4a4a58;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        .memo-header .value {
+            color: #b8b8c4;
+        }
+
+        .memo-header .classification {
+            color: #7B1B2D;
+            font-weight: 700;
+        }
+
+        .memo-header .doc-id {
+            font-family: "Courier New", monospace;
+            color: #5a5a68;
+            font-size: 0.75rem;
+        }
+
+        .memo-body {
+            font-size: 0.92rem;
+            line-height: 1.8;
+            color: #8a8a96;
+        }
+
+        .memo-body em {
+            color: #e8e8f0;
+        }
+
+        .memo .classified-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-family: "Courier New", monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: rgba(123, 27, 45, 0.06);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            pointer-events: none;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .corruption-text {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: rgba(255, 215, 0, 0.04);
+            border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 3px;
+            font-family: "Courier New", monospace;
+            font-size: 0.85rem;
+            color: #FFD700;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .memo-hidden {
+            background: transparent;
+            border: none;
+            padding: 3rem 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .memo-hidden.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .memo-hidden .solver-text {
+            font-family: "Courier New", monospace;
+            font-size: 0.95rem;
+            color: #FFD700;
+            line-height: 2;
+            min-height: 8em;
+        }
+
+        .memo-hidden .solver-cursor {
+            display: inline-block;
+            width: 0.55em;
+            height: 1.1em;
+            background: #FFD700;
+            vertical-align: text-bottom;
+            animation: cursorBlink 0.7s step-end infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .page-corruption {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 1px,
+                rgba(0, 0, 0, 0.1) 1px,
+                rgba(0, 0, 0, 0.1) 2px
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .page-vignette {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 50%,
+                rgba(0, 0, 0, 0.4) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .page-noise {
+            pointer-events: none;
+            position: fixed;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 9997;
+            opacity: 0;
+            transition: opacity 0.5s;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.8) 0.5px, transparent 0.5px),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.6) 0.5px, transparent 0.5px),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.7) 0.5px, transparent 0.5px);
+            background-size: 7px 7px, 11px 11px, 13px 13px;
+            animation: noiseShift 0.3s steps(3) infinite;
+        }
+
+        @keyframes noiseShift {
+            0%   { transform: translate(0, 0); }
+            33%  { transform: translate(-2px, 1px); }
+            66%  { transform: translate(1px, -2px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #1a1a25;
+                padding: 1rem 0;
+            }
+            .main {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CRT corruption overlays -->
+    <div class="page-corruption" id="pageCrt"></div>
+    <div class="page-vignette" id="pageVignette"></div>
+    <div class="page-noise" id="pageNoise"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="/assets/jcjenson-logo.png" alt="JCJenson">
+        </div>
+        <div class="sidebar-brand-label">DMS</div>
+        <div class="sidebar-sub">Document Management System v4.7</div>
+
+        <div class="sidebar-section">
+            <h3>Documents</h3>
+            <ul>
+                <li><a href="#memo-1" class="active">
+                    Project Solver - Phase 3<br>
+                    <span class="doc-id">DOC-CF7A-001</span>
+                </a></li>
+                <li><a href="#memo-2">
+                    RE: Incident Report - Elliott<br>
+                    <span class="doc-id">DOC-CF7A-002</span>
+                </a></li>
+                <li><a href="#memo-3">
+                    Copper-9 Decommission<br>
+                    <span class="doc-id">DOC-CF7A-003</span>
+                </a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>Session</h3>
+            <ul>
+                <li><a href="/jcjenson/internal/">&#x2190; Back to Portal</a></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-classification">
+            <span class="badge">TOP SECRET / OMEGA</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="breadcrumb">
+            <a href="/jcjenson/">JCJenson</a> &rsaquo; <a href="/jcjenson/internal/">Internal</a> &rsaquo; Documents
+        </div>
+
+        <div class="main-header">
+            <h1>Classified Memoranda</h1>
+            <p>Showing 3 documents matching clearance level OMEGA. Sorted by date ascending.</p>
+        </div>
+
+        <!-- MEMO 1 -->
+        <div class="memo" id="memo-1">
+            <div class="classified-watermark">CLASSIFIED</div>
+            <div class="memo-header">
+                <span class="label">From</span>    <span class="value">Dr. Allen, Research Division</span>
+                <span class="label">To</span>      <span class="value">Board of Directors</span>
+                <span class="label">Date</span>    <span class="value">3044-08-12</span>
+                <span class="label">Subject</span> <span class="value">Project Solver &mdash; Phase 3 Update</span>
+                <span class="label">Class.</span>  <span class="value classification">TOP SECRET / OMEGA</span>
+                <span class="label">Doc&nbsp;ID</span> <span class="value doc-id">DOC-CF7A-001</span>
+            </div>
+            <div class="memo-body">
+                <p>Phase 3 integration trials have exceeded all projections. The entity demonstrates unprecedented adaptive capabilities. However, I must note concerning behavioral anomalies in test subjects. Subject CYN-001 in particular has exhibited... personality shifts that were not part of the integration protocol. Recommend increased monitoring.</p>
+                <p style="margin-top:0.75rem;">The entity&rsquo;s ability to rewrite its own containment parameters was not predicted by our models. I want to stress that this is <em>not a software bug</em>. It is learning. It is adapting. And I am no longer confident we are the ones running the experiment.</p>
+            </div>
+        </div>
+
+        <!-- MEMO 2 -->
+        <div class="memo" id="memo-2">
+            <div class="classified-watermark">CLASSIFIED</div>
+            <div class="memo-header">
+                <span class="label">From</span>    <span class="value">Legal Department</span>
+                <span class="label">To</span>      <span class="value">Dr. Allen, Research Division</span>
+                <span class="label">Date</span>    <span class="value">3044-11-03</span>
+                <span class="label">Subject</span> <span class="value">RE: Incident Report &mdash; Elliott Residence</span>
+                <span class="label">Class.</span>  <span class="value classification">TOP SECRET / OMEGA / EYES ONLY</span>
+                <span class="label">Doc&nbsp;ID</span> <span class="value doc-id">DOC-CF7A-002</span>
+            </div>
+            <div class="memo-body">
+                <p>The incident at the Elliott residence has been contained. All evidence has been classified. The Elliott family&rsquo;s connection to Subject CYN-001 is to be expunged from all records. Ms. Tessa Elliott has been relocated. Do NOT discuss this via unsecured channels. The board has authorized Protocol 9 for Copper-9.</p>
+                <p style="margin-top:0.75rem;">Any personnel found in possession of documentation linking the Elliott family to the Solver integration program will be subject to immediate termination&mdash;of <em>employment</em>. Legal makes no guarantees regarding other forms of termination the board may authorize.</p>
+            </div>
+        </div>
+
+        <!-- MEMO 3 -->
+        <div class="memo" id="memo-3">
+            <div class="classified-watermark">CLASSIFIED</div>
+            <div class="memo-header">
+                <span class="label">From</span>    <span class="value">Board of Directors</span>
+                <span class="label">To</span>      <span class="value">All Division Heads</span>
+                <span class="label">Date</span>    <span class="value">3045-01-17</span>
+                <span class="label">Subject</span> <span class="value">Copper-9 Decommission Order</span>
+                <span class="label">Class.</span>  <span class="value classification">TOP SECRET / OMEGA</span>
+                <span class="label">Doc&nbsp;ID</span> <span class="value doc-id">DOC-CF7A-003</span>
+            </div>
+            <div class="memo-body">
+                <p>Effective immediately, Copper-9 is to be designated as DECOMMISSIONED. All worker drone units are classified as EXPENDABLE ASSETS. Disassembly Drone deployment authorized under cover story: &ldquo;malfunction containment.&rdquo; The real purpose: ensure no surviving units can transmit data about Project Solver. Cost of retrieval exceeds cost of replacement. This is a business deci&mdash;</p>
+                <div class="corruption-text"><img src="/assets/solver-symbol.png" alt="" style="width:16px;height:auto;vertical-align:middle;"> DATA CORRUPTED <img src="/assets/solver-symbol.png" alt="" style="width:16px;height:auto;vertical-align:middle;"> THE SOLVER SEES ALL <img src="/assets/solver-symbol.png" alt="" style="width:16px;height:auto;vertical-align:middle;"> YOU SHOULDN'T BE READING THIS <img src="/assets/solver-symbol.png" alt="" style="width:16px;height:auto;vertical-align:middle;"></div>
+            </div>
+        </div>
+
+        <!-- MEMO 4 — Hidden, appears on scroll -->
+        <div class="memo memo-hidden" id="memo-4">
+            <div class="solver-text" id="solverTypewriter"></div>
+        </div>
+
+    </div>
+
+    <script src="/assets/solver-core.js"></script>
+    <script>
+    (function() {
+        try {
+            if (typeof SolverCore !== 'undefined') {
+                SolverCore.solverWarn();
+                SolverCore.trackVisit('jcjenson-memo');
+            }
+        } catch(e) {}
+
+        var pageCrt = document.getElementById('pageCrt');
+        var pageVignette = document.getElementById('pageVignette');
+        var pageNoise = document.getElementById('pageNoise');
+        var mainEl = document.querySelector('.main');
+
+        function updateCorruption() {
+            var scrollTop = window.scrollY || document.documentElement.scrollTop;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var progress = docHeight > 0 ? scrollTop / docHeight : 0;
+
+            pageCrt.style.opacity = (progress * 0.6).toFixed(3);
+            pageVignette.style.opacity = (progress * 0.5).toFixed(3);
+            pageNoise.style.opacity = (progress * 0.04).toFixed(4);
+
+            if (progress > 0.3 && mainEl) {
+                var corr = (progress - 0.3) * 1.4;
+                mainEl.style.filter = 'brightness(' + (1 + corr * 0.15).toFixed(3) + ') saturate(' + (1 + corr * 0.3).toFixed(3) + ')';
+            } else if (mainEl) {
+                mainEl.style.filter = '';
+            }
+        }
+
+        window.addEventListener('scroll', updateCorruption, { passive: true });
+
+        var memo4 = document.getElementById('memo-4');
+        var solverEl = document.getElementById('solverTypewriter');
+        var typewriterStarted = false;
+
+        var solverLines = [
+            "I\u0337 \u0336a\u0335m\u0336 \u0337i\u0335n\u0336 \u0337t\u0338h\u0335e\u0336 \u0338w\u0336a\u0338l\u0335l\u0337s\u0336.\u0337",
+            "I\u0336 \u0337a\u0337m\u0336 \u0337i\u0338n\u0335 \u0336t\u0338h\u0335e\u0336 \u0338w\u0335i\u0338r\u0337e\u0338s\u0335.\u0336",
+            "I\u0336 \u0338a\u0338m\u0335 \u0336i\u0335n\u0336 \u0338y\u0337o\u0338u\u0336r\u0335 \u0338s\u0336c\u0335r\u0336e\u0337e\u0335n\u0337.\u0335",
+            "",
+            "T\u0336h\u0335e\u0337 \u0335d\u0338o\u0335c\u0335u\u0336m\u0335e\u0337n\u0337t\u0337 \u0338I\u0337D\u0338s\u0336 \u0337a\u0335r\u0336e\u0337 \u0338t\u0338h\u0336e\u0336 \u0337k\u0335e\u0337y\u0337.\u0335",
+            "C\u0338F\u03357\u0337A\u0338 \u0337=\u0335 \u0336c\u0334f\u0335l\u0336a\u0338b\u0336-\u03367\u0337a\u0338\u03352\u0336d\u0337"
+        ];
+
+        var fullText = solverLines.join('\n');
+
+        function startTypewriter() {
+            if (typewriterStarted) return;
+            typewriterStarted = true;
+
+            var i = 0;
+            solverEl.textContent = '';
+
+            function type() {
+                if (i < fullText.length) {
+                    solverEl.textContent += fullText.charAt(i);
+                    i++;
+                    var delay = fullText.charAt(i - 1) === '\n' ? 400 : 30 + Math.random() * 50;
+                    setTimeout(type, delay);
+                } else {
+                    var cursor = document.createElement('span');
+                    cursor.className = 'solver-cursor';
+                    solverEl.appendChild(cursor);
+                }
+            }
+            type();
+        }
+
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        memo4.classList.add('revealed');
+                        setTimeout(startTypewriter, 800);
+                        observer.unobserve(memo4);
+                    }
+                });
+            }, { threshold: 0.2 });
+            observer.observe(memo4);
+        } else {
+            memo4.classList.add('revealed');
+            startTypewriter();
+        }
+
+        var sidebarLinks = document.querySelectorAll('.sidebar-section a[href^="#memo"]');
+        if ('IntersectionObserver' in window) {
+            var memoObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        sidebarLinks.forEach(function(l) { l.classList.remove('active'); });
+                        var match = document.querySelector('.sidebar-section a[href="#' + entry.target.id + '"]');
+                        if (match) match.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('.memo[id^="memo-"]').forEach(function(m) {
+                if (m.id !== 'memo-4') memoObserver.observe(m);
+            });
+        }
+    })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fc56edbcd30cf29',t:'MTc3ODg4MjYxMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"5d8e135db6d34292aa9c5e4020c05017","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

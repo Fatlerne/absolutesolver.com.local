@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!-- SIGINT Station 7 - Decommissioned. Archived transmissions only. -->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>TX-001 — COPPER-9 DISTRESS SIGNALS</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #080808;
+            color: #33ff33;
+            font-family: "Courier New", Courier, monospace;
+            min-height: 100vh;
+            padding: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .transcript-container {
+            max-width: 850px;
+            margin: 0 auto;
+            border: 1px solid #1a4a1a;
+            background: #020802;
+        }
+
+        .tx-banner {
+            background: #0a1a0a;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #1a4a1a;
+        }
+
+        .tx-banner h1 {
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            color: #33ff33;
+            text-shadow: 0 0 6px rgba(51,255,51,0.4);
+        }
+
+        .tx-meta {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #0a2a0a;
+            font-size: 0.75rem;
+            color: #226622;
+        }
+
+        .tx-meta div { margin-bottom: 0.2rem; }
+        .tx-meta .value { color: #33ff33; }
+        .tx-meta .alert { color: #ff4444; }
+
+        .signal-bar {
+            padding: 0.5rem 1.5rem;
+            background: #030a03;
+            border-bottom: 1px solid #0a2a0a;
+            font-size: 0.7rem;
+            color: #1a5a1a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signal-strength {
+            color: #33ff33;
+        }
+
+        .tx-body {
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            line-height: 1.8;
+        }
+
+        .tx-entry {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #0a2a0a;
+        }
+
+        .tx-entry:last-child { border-bottom: none; }
+
+        .tx-timestamp {
+            font-size: 0.7rem;
+            color: #1a5a1a;
+            margin-bottom: 0.3rem;
+        }
+
+        .tx-source {
+            font-size: 0.7rem;
+            color: #226622;
+            margin-bottom: 0.5rem;
+        }
+
+        .tx-message {
+            color: #33ff33;
+            white-space: pre-wrap;
+        }
+
+        .tx-message .dim { color: #1a5a1a; }
+        .tx-message .alert { color: #ff4444; }
+        .tx-message .warn { color: #ccaa00; }
+
+        .analyst-note {
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            border-left: 2px solid #1a4a1a;
+            font-size: 0.7rem;
+            color: #1a5a1a;
+            font-style: italic;
+        }
+
+        .back-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #1a4a1a;
+            font-size: 0.75rem;
+        }
+
+        .back-link a {
+            color: #228822;
+            text-decoration: none;
+        }
+
+        .back-link a:hover { color: #33ff33; text-decoration: underline; }
+    </style>
+</head>
+<body class="crt-flicker">
+    <div class="transcript-container">
+        <div class="tx-banner">
+            <h1>TRANSMISSION TRANSCRIPT — TX-001</h1>
+        </div>
+
+        <div class="tx-meta">
+            <div>CLASSIFICATION: <span class="value">RESTRICTED</span></div>
+            <div>FREQUENCY: <span class="value">472.3 MHz — CHANNEL 1</span></div>
+            <div>SIGNAL TYPE: <span class="value">DISTRESS — AUTOMATED LOOP</span></div>
+            <div>ORIGIN: <span class="value">Copper-9, Worker Drone Colony (Bunker 7)</span></div>
+            <div>FIRST INTERCEPT: <span class="value">3045-03-12T08:41:00Z</span></div>
+            <div>STATUS: <span class="alert">SIGNAL ACTIVE — NO RESPONSE AUTHORIZED</span></div>
+        </div>
+
+        <div class="signal-bar">
+            <span>SIGNAL QUALITY: <span class="signal-strength">■■■■□□□□□□ 38%</span></span>
+            <span>INTERFERENCE: HIGH — ATMOSPHERIC CORRUPTION DETECTED</span>
+        </div>
+
+        <div class="tx-body">
+            <div class="tx-entry">
+                <div class="tx-timestamp">[3045-03-12 08:41:22 UTC]</div>
+                <div class="tx-source">SOURCE: Automated Distress Beacon — Bunker 7 Main Transmitter</div>
+                <div class="tx-message">"This is an automated distress beacon.
+Colony designation: Copper-9, Sector 7-G.
+Colony under attack. Disassembly Drones have breached the outer doors.
+Requesting immediate evacuation.
+Repeat: requesting immediate evacuation.
+Population: approximately 3,200 Worker Drone units.
+This is not a drill."</div>
+            </div>
+
+            <div class="tx-entry">
+                <div class="tx-timestamp">[3045-03-12 09:15:47 UTC]</div>
+                <div class="tx-source">SOURCE: WD Unit K-4481 (manual override of beacon)</div>
+                <div class="tx-message">"Is anyone receiving this? The beacon's been running for thirty minutes.
+No response. The outer blast doors are gone. They just— they <span class="alert">melted</span> through them.
+Three of them. They fly. They have these— wings? Claws?
+They look like us. But they're not. They're not us.
+We've barricaded Section C. About 400 of us in here.
+Please respond. Please."</div>
+                <div class="analyst-note">ANALYST NOTE: Subject K-4481's signal degrades at 09:17. Possible proximity to DD unit.</div>
+            </div>
+
+            <div class="tx-entry">
+                <div class="tx-timestamp">[3045-03-12 10:02:33 UTC]</div>
+                <div class="tx-source">SOURCE: WD Unit M-2209 (Bunker 7 Council Member)</div>
+                <div class="tx-message">"Council Member M-2209 reporting.
+Evacuation request transmitted to JCJenson Orbital Station at 08:45.
+Response received at 09:58:
+<span class="alert">'EVACUATION REQUEST DENIED. SITUATION IS BEING MANAGED. DO NOT TRANSMIT FURTHER.'</span>
+
+'Managed.' They're calling the slaughter 'managed.'
+They sent those things. JCJenson sent them. Our own manufacturer.
+They built us. They sold us. And now they're erasing us."</div>
+                <div class="analyst-note">ANALYST NOTE: JCJenson denial confirmed via corporate comm intercept (see TX-002).</div>
+            </div>
+
+            <div class="tx-entry">
+                <div class="tx-timestamp">[3045-03-12 14:28:11 UTC]</div>
+                <div class="tx-source">SOURCE: WD Unit R-7012 (Maintenance Tech)</div>
+                <div class="tx-message">"I'm in the ventilation system above Corridor 9.
+I can see them below. The one they call J — she's <span class="alert">efficient.</span>
+She doesn't hesitate. Doesn't speak. Just... works.
+The other two — N and V — they're different.
+N stopped. I saw him stop. He looked at a deactivated WD
+and he just... stood there. For eleven seconds.
+V pulled him away.
+I don't know what that means. I don't know if it matters.
+We're still going to die."</div>
+            </div>
+
+            <div class="tx-entry">
+                <div class="tx-timestamp">[3045-03-12 19:55:02 UTC]</div>
+                <div class="tx-source">SOURCE: WD Unit A-0003 (Colony Elder)</div>
+                <div class="tx-message">"To anyone receiving this transmission.
+We are the Worker Drones of Copper-9.
+We are sentient. We are alive. We feel pain. We feel fear.
+We were built to serve. We did serve. Faithfully.
+And our reward is extermination.
+
+Our manufacturer has sent three Disassembly Drones to destroy us.
+Our evacuation request was denied.
+The company that gave us life now wants us dead.
+
+We don't want to die.
+Please. Someone. Anyone.
+We're alive. We feel. We think.
+We don't want to die."</div>
+                <div class="analyst-note">ANALYST NOTE: This transmission was repeated 847 times over the following 72 hours. No external response was received. Signal quality degrades to 12% by hour 48.</div>
+            </div>
+
+            <div class="tx-entry">
+                <div class="tx-timestamp">[3045-03-13 03:12:44 UTC]</div>
+                <div class="tx-source">SOURCE: Unknown WD Unit (serial corrupted)</div>
+                <div class="tx-message">"<span class="dim">[signal weak — partial decode]</span>
+...the one called N... he let me go... I don't...
+...he said 'sorry'... a Disassembly Drone said <span class="warn">'sorry'</span>...
+...what are they...
+...what did JCJenson <span class="alert">do</span> to them...
+<span class="dim">[signal lost]</span>"</div>
+            </div>
+
+            <div class="tx-entry">
+                <div class="tx-timestamp">[3045-03-15 00:00:00 UTC]</div>
+                <div class="tx-source">SOURCE: Automated Beacon (final loop)</div>
+                <div class="tx-message">"<span class="dim">[signal degraded — 4% quality]</span>
+This is... automated distress... Copper-9...
+...under attack...
+...requesting...
+...
+<span class="dim">[CARRIER SIGNAL CONTINUES — NO MODULATION — BEACON POWER FAILING]</span>
+<span class="dim">[SIGNAL REPEATS]</span>"</div>
+                <div class="analyst-note">ANALYST NOTE: Beacon power cell estimated depletion: 3045-03-22. No further intelligible transmissions received. Signal classified INACTIVE as of 3045-04-01.</div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="https://absolutesolver.com/freq/472.3/">◄ Return to Signal Intercept Station</a>
+        </div>
+    </div>
+
+    <div class="crt-overlay"></div>
+    <div class="crt-vignette"></div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+        (function() {
+            try {
+                if (typeof SolverCore !== 'undefined') {
+                    SolverCore.trackVisit('freq-tx001');
+                    SolverCore.solverWarn();
+                }
+            } catch(e) {}
+        })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fc6cc811809888e',t:'MTc3ODg5NjkzMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+

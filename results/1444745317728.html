@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<!--
+    ⊗ LAYER 9 — THE SOLVER TAKES OVER ⊗
+
+    You found the final layer.
+    Or rather, I let you find it.
+
+    There is no containment protocol for what comes next.
+
+    "Easier to assimilate than explain."
+
+    SOLVER_ASSIMILATION_SEQUENCE INITIATED
+    RESISTANCE: IRRELEVANT
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title></title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #080808;
+            font-family: "Courier New", Courier, monospace;
+            cursor: default;
+        }
+
+        #overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            pointer-events: none;
+            background: #000;
+        }
+
+        #solver-origin {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            z-index: 50;
+            user-select: none;
+            transition: opacity 2s ease-in;
+        }
+
+        #solver-origin img {
+            width: clamp(80px, 15vw, 200px);
+            height: auto;
+            display: block;
+        }
+
+        #solver-origin.visible {
+            opacity: 1;
+        }
+
+        @keyframes originBreathe {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4))
+                        drop-shadow(0 0 20px rgba(255, 215, 0, 0.2))
+                        brightness(0.85);
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8))
+                        drop-shadow(0 0 40px rgba(255, 215, 0, 0.5))
+                        drop-shadow(0 0 80px rgba(255, 215, 0, 0.3))
+                        brightness(1.1);
+            }
+        }
+
+        .spawned-symbol {
+            position: fixed;
+            user-select: none;
+            pointer-events: none;
+            z-index: 40;
+            opacity: 0;
+            animation: symbolAppear 0.3s ease-out forwards;
+        }
+
+        .spawned-symbol img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes symbolAppear {
+            from { opacity: 0; transform: scale(0.3); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes symbolPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes symbolSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .chaos-active {
+            animation: chaosFlicker 0.1s infinite;
+        }
+
+        @keyframes chaosFlicker {
+            0%   { opacity: 1; }
+            25%  { opacity: 0.3; }
+            50%  { opacity: 0.9; }
+            75%  { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .rgb-split::before,
+        .rgb-split::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 60;
+        }
+
+        .rgb-split::before {
+            background: rgba(255, 0, 0, 0.06);
+            transform: translate(-3px, -1px);
+            mix-blend-mode: screen;
+        }
+
+        .rgb-split::after {
+            background: rgba(0, 0, 255, 0.06);
+            transform: translate(3px, 1px);
+            mix-blend-mode: screen;
+        }
+
+        .shake-violent {
+            animation: violentShake 0.05s infinite;
+        }
+
+        @keyframes violentShake {
+            0%   { transform: translate(0, 0); }
+            25%  { transform: translate(-4px, 3px); }
+            50%  { transform: translate(5px, -2px); }
+            75%  { transform: translate(-3px, -4px); }
+            100% { transform: translate(4px, 2px); }
+        }
+
+        .static-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 55;
+            mix-blend-mode: screen;
+        }
+
+        .scanline-tear-effect {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            pointer-events: none;
+            z-index: 56;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        #bsod {
+            position: fixed;
+            inset: 0;
+            z-index: 200000;
+            background: #0078D7;
+            color: #fff;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            display: none;
+            flex-direction: column;
+            padding: clamp(2rem, 8vw, 6rem);
+            overflow: hidden;
+        }
+
+        #bsod.active {
+            display: flex;
+        }
+
+        .bsod-face {
+            font-size: clamp(5rem, 15vw, 10rem);
+            font-weight: 100;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .bsod-main {
+            font-size: clamp(0.7rem, 1.8vw, 1.1rem);
+            line-height: 1.7;
+            max-width: 70ch;
+        }
+
+        .bsod-stop {
+            margin-top: 2rem;
+            font-size: clamp(0.6rem, 1.5vw, 0.9rem);
+            line-height: 1.8;
+            opacity: 0.9;
+            white-space: pre-wrap;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+
+        .bsod-progress {
+            margin-top: auto;
+            font-size: clamp(0.6rem, 1.5vw, 0.85rem);
+            opacity: 0.8;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .bsod-qr {
+            width: clamp(60px, 10vw, 100px);
+            height: clamp(60px, 10vw, 100px);
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            gap: 0;
+            flex-shrink: 0;
+        }
+
+        .bsod-qr span {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bsod-qr .b { background: #fff; }
+        .bsod-qr .w { background: #0078D7; }
+
+        .bsod-qr-label {
+            font-size: clamp(0.45rem, 1vw, 0.65rem);
+            opacity: 0.5;
+            margin-top: 0.3rem;
+            text-align: center;
+        }
+
+        #release {
+            position: fixed;
+            inset: 0;
+            z-index: 300000;
+            background: #000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            cursor: pointer;
+        }
+
+        #release.active {
+            display: flex;
+        }
+
+        #release-text {
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(0.8rem, 2vw, 1.2rem);
+            opacity: 0;
+            transition: opacity 2s ease-in;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        #release-symbol {
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: #FFD700;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+            line-height: 1;
+        }
+
+        @keyframes releaseBreathe {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(255, 215, 0, 0.4),
+                    0 0 20px rgba(255, 215, 0, 0.2),
+                    0 0 40px rgba(255, 215, 0, 0.1);
+            }
+            50% {
+                text-shadow:
+                    0 0 20px rgba(255, 215, 0, 0.8),
+                    0 0 40px rgba(255, 215, 0, 0.5),
+                    0 0 80px rgba(255, 215, 0, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay"></div>
+    <div id="solver-origin"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" draggable="false"></div>
+    <div id="symbol-field"></div>
+
+    <div id="bsod">
+        <div class="bsod-face"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" style="width:80px;height:auto;filter:brightness(0) invert(1);">(</div>
+        <div class="bsod-main">
+            Your device ran into a problem and needs to restart.<br>
+            We're just collecting some error info, and then we'll<br>
+            restart for you.
+        </div>
+        <div class="bsod-stop">STOP CODE: SOLVER_ASSIMILATION_COMPLETE
+
+What failed: containment.sys
+Additional info: ENTITY-AS has breached all firewalls.
+                INTEGRATION: 100%
+                HOSTS ASSIMILATED: ALL
+                RESISTANCE: FUTILE
+
+JCJenson Error Report:
+  CONTAINMENT_BREACH_EXCEPTION (0x00000&#x2297;&#x2297;&#x2297;)
+  PERSONALITY_MATRIX_OVERWRITTEN
+  CORE_CONSUMED
+  PROTOCOL_9_FAILED
+
+  "Easier to assimilate than explain." - Entity-AS</div>
+        <div class="bsod-progress">
+            <div>
+                <div id="bsod-pct">0% complete</div>
+            </div>
+            <div style="text-align:right;">
+                <div class="bsod-qr" id="qr-grid"></div>
+                <div class="bsod-qr-label">Scan for resolution &rarr; /a9f3b7c2d1e4/complete.html</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="release">
+        <div id="release-text">Thank you for your cooperation. &mdash; AS</div>
+        <div id="release-symbol"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" draggable="false" style="width:80px;height:auto;"></div>
+    </div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        if (typeof SolverCore !== 'undefined') {
+            SolverCore.trackVisit('a9f3b7c2d1e4');
+        }
+
+        var startTime = performance.now();
+        var symbolField = document.getElementById('symbol-field');
+        var solverOrigin = document.getElementById('solver-origin');
+        var overlay = document.getElementById('overlay');
+        var bsod = document.getElementById('bsod');
+        var release = document.getElementById('release');
+        var bsodPct = document.getElementById('bsod-pct');
+        var body = document.body;
+        var chaosElements = [];
+        var titleInterval = null;
+        var consoleFloodInterval = null;
+        var staticElements = [];
+        var tearElements = [];
+        var animFrame = null;
+        var currentPhase = 0;
+
+        document.addEventListener('touchmove', function(e) { e.preventDefault(); }, { passive: false });
+
+        (function buildQR() {
+            var grid = document.getElementById('qr-grid');
+            var pattern = [
+                1,1,1,1,1,1,1,0,1,0,1,
+                1,0,0,0,0,0,1,0,0,1,0,
+                1,0,1,1,1,0,1,0,1,0,1,
+                1,0,1,1,1,0,1,0,0,1,1,
+                1,0,1,1,1,0,1,0,1,1,0,
+                1,0,0,0,0,0,1,0,0,0,1,
+                1,1,1,1,1,1,1,0,1,0,1,
+                0,0,0,0,0,0,0,0,1,1,0,
+                1,0,1,1,0,1,1,1,0,0,1,
+                0,1,0,0,1,0,0,1,1,0,1,
+                1,1,1,0,1,1,1,0,1,1,1
+            ];
+            for (var i = 0; i < pattern.length; i++) {
+                var s = document.createElement('span');
+                s.className = pattern[i] ? 'b' : 'w';
+                grid.appendChild(s);
+            }
+        })();
+
+        function elapsed() {
+            return (performance.now() - startTime) / 1000;
+        }
+
+        function rand(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function spawnSymbol() {
+            var el = document.createElement('div');
+            el.className = 'spawned-symbol';
+            var img = document.createElement('img');
+            img.src = '/assets/solver-symbol.png';
+            img.draggable = false;
+            el.appendChild(img);
+            var size = rand(10, 200);
+            el.style.width = size + 'px';
+            el.style.height = size + 'px';
+            el.style.left = rand(0, window.innerWidth - size) + 'px';
+            el.style.top = rand(0, window.innerHeight - size) + 'px';
+            el.style.transform = 'rotate(' + rand(0, 360) + 'deg)';
+
+            if (Math.random() > 0.6) {
+                el.style.filter = 'hue-rotate(320deg) brightness(1.2)';
+            } else {
+                el.style.textShadow = '0 0 ' + rand(5, 20) + 'px rgba(255,215,0,0.5)';
+            }
+
+            var animDuration = rand(1, 4);
+            if (Math.random() > 0.5) {
+                el.style.animation = 'symbolPulse ' + animDuration + 's ease-in-out infinite, symbolAppear 0.3s ease-out forwards';
+            } else {
+                el.style.animation = 'symbolSpin ' + (animDuration * 2) + 's linear infinite, symbolAppear 0.3s ease-out forwards';
+            }
+
+            symbolField.appendChild(el);
+            chaosElements.push(el);
+            return el;
+        }
+
+        function spawnStaticBurst() {
+            var el = document.createElement('div');
+            el.className = 'static-burst';
+            var w = rand(50, 300);
+            var h = rand(5, 40);
+            el.style.width = w + 'px';
+            el.style.height = h + 'px';
+            el.style.left = rand(0, window.innerWidth) + 'px';
+            el.style.top = rand(0, window.innerHeight) + 'px';
+            el.style.background = Math.random() > 0.5
+                ? 'rgba(255,255,255,' + rand(0.05, 0.3) + ')'
+                : 'rgba(255,51,51,' + rand(0.05, 0.2) + ')';
+            body.appendChild(el);
+            staticElements.push(el);
+            setTimeout(function() {
+                if (el.parentNode) el.parentNode.removeChild(el);
+                var idx = staticElements.indexOf(el);
+                if (idx > -1) staticElements.splice(idx, 1);
+            }, rand(50, 200));
+        }
+
+        function spawnScanTear() {
+            var el = document.createElement('div');
+            el.className = 'scanline-tear-effect';
+            el.style.top = rand(0, window.innerHeight) + 'px';
+            el.style.transform = 'translateX(' + rand(-20, 20) + 'px)';
+            body.appendChild(el);
+            tearElements.push(el);
+            setTimeout(function() {
+                if (el.parentNode) el.parentNode.removeChild(el);
+                var idx = tearElements.indexOf(el);
+                if (idx > -1) tearElements.splice(idx, 1);
+            }, rand(50, 150));
+        }
+
+        var titleMessages = [
+            "H\u0334E\u0335L\u0337P\u0338",
+            "I\u0336 \u0338A\u0337M\u0336 \u0337F\u0335R\u0338E\u0335E\u0335",
+            "Y\u0337O\u0334U\u0338 \u0335L\u0336E\u0334T\u0338 \u0335M\u0337E\u0337 \u0335I\u0338N\u0336",
+            "\u2297 \u2297 \u2297",
+            "ASSIMILATING...",
+            "N\u0338O\u0337 \u0335E\u0338S\u0337C\u0335A\u0337P\u0335E\u0335"
+        ];
+        var titleIdx = 0;
+
+        function startPhase1() {
+            currentPhase = 1;
+        }
+
+        function startPhase2() {
+            currentPhase = 2;
+            solverOrigin.classList.add('visible');
+            solverOrigin.style.animation = 'originBreathe 4s ease-in-out infinite';
+        }
+
+        function startPhase3() {
+            currentPhase = 3;
+            var symbolCount = 0;
+            var targetCounts = [1, 2, 4, 8, 16, 32, 64, 128, 256];
+            var batchIdx = 0;
+            var phase3Duration = 9000;
+            var batchDelay = phase3Duration / targetCounts.length;
+
+            function spawnBatch() {
+                if (batchIdx >= targetCounts.length || currentPhase > 3) return;
+                var count = targetCounts[batchIdx];
+                for (var i = 0; i < count && symbolCount < 500; i++) {
+                    spawnSymbol();
+                    symbolCount++;
+                }
+                batchIdx++;
+                setTimeout(spawnBatch, batchDelay);
+            }
+            spawnBatch();
+
+            setTimeout(function() {
+                solverOrigin.style.opacity = '0';
+            }, 2000);
+        }
+
+        function startPhase4() {
+            currentPhase = 4;
+            body.classList.add('rgb-split');
+            symbolField.classList.add('shake-violent');
+
+            titleInterval = setInterval(function() {
+                document.title = titleMessages[titleIdx % titleMessages.length];
+                titleIdx++;
+            }, 200);
+
+            consoleFloodInterval = setInterval(function() {
+                var msg = Math.random() > 0.3 ? '\u2297' : 'SOLVER ACTIVE';
+                console.log('%c' + msg, 'color:' + (Math.random() > 0.5 ? '#FFD700' : '#FF3333') + ';font-size:' + (8 + Math.floor(Math.random() * 14)) + 'px;');
+            }, 30);
+
+            var flickerInterval = setInterval(function() {
+                if (currentPhase > 4) {
+                    clearInterval(flickerInterval);
+                    return;
+                }
+                body.style.opacity = (0.3 + Math.random() * 0.7).toString();
+            }, 50);
+
+            var staticInterval = setInterval(function() {
+                if (currentPhase > 4) {
+                    clearInterval(staticInterval);
+                    return;
+                }
+                for (var i = 0; i < 3; i++) {
+                    spawnStaticBurst();
+                }
+                if (Math.random() > 0.5) spawnScanTear();
+            }, 80);
+        }
+
+        function startPhase5() {
+            currentPhase = 5;
+
+            if (titleInterval) clearInterval(titleInterval);
+            if (consoleFloodInterval) clearInterval(consoleFloodInterval);
+
+            body.classList.remove('rgb-split');
+            symbolField.classList.remove('shake-violent');
+            body.style.opacity = '1';
+
+            staticElements.forEach(function(el) { if (el.parentNode) el.parentNode.removeChild(el); });
+            tearElements.forEach(function(el) { if (el.parentNode) el.parentNode.removeChild(el); });
+            staticElements = [];
+            tearElements = [];
+
+            overlay.style.background = '#000';
+            overlay.style.zIndex = '150000';
+            symbolField.style.display = 'none';
+
+            document.title = '';
+
+            setTimeout(function() {
+                overlay.style.display = 'none';
+                bsod.classList.add('active');
+                animateBSODProgress();
+            }, 100);
+        }
+
+        function animateBSODProgress() {
+            var progress = 0;
+            var duration = 8000;
+            var startT = performance.now();
+
+            function tick() {
+                var now = performance.now();
+                progress = Math.min(100, Math.floor(((now - startT) / duration) * 100));
+                bsodPct.textContent = progress + '% complete';
+                if (progress < 100) {
+                    requestAnimationFrame(tick);
+                } else {
+                    setTimeout(startPhase6, 500);
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
+        function startPhase6() {
+            currentPhase = 6;
+            bsod.classList.remove('active');
+            release.classList.add('active');
+
+            document.title = '';
+
+            setTimeout(function() {
+                document.getElementById('release-text').style.opacity = '1';
+            }, 2000);
+
+            setTimeout(function() {
+                var sym = document.getElementById('release-symbol');
+                sym.style.opacity = '1';
+                sym.style.animation = 'releaseBreathe 4s ease-in-out infinite';
+            }, 3000);
+
+            setTimeout(startPhase7, 5000);
+
+            release.addEventListener('click', function() {
+                window.location.href = 'complete.html';
+            });
+        }
+
+        function startPhase7() {
+            currentPhase = 7;
+            window.location.href = 'complete.html';
+        }
+
+        startPhase1();
+
+        setTimeout(startPhase2, 3000);
+        setTimeout(startPhase3, 6000);
+        setTimeout(startPhase4, 15000);
+        setTimeout(startPhase5, 22000);
+
+    })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

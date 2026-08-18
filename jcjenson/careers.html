@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<!--
+    JCJenson (in SPAAAAACE!) — Careers Portal
+    Application system offline. For internal positions, access the employee portal.
+    
+    HR Contact: recruitment@jcjenson.corp
+    Portal: /jcjenson/internal/
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join JCJenson - Career opportunities across the galaxy.">
+    <meta name="theme-color" content="#08080e">
+    <link rel="icon" type="image/png" href="/1764476138510.png">
+    <link rel="stylesheet" href="/assets/glitch.css">
+    <title>Careers — JCJenson (in SPAAAAACE!)</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "Segoe UI", -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #08080e;
+            color: #b8b8c4;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(8, 8, 14, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(123, 27, 45, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+            height: 56px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            height: 28px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #8a8a96;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #e8e8f0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: #7B1B2D;
+            transform: scaleX(0);
+            transition: transform 0.25s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+
+        .nav-links a.active {
+            color: #e8e8f0;
+        }
+
+        .page-header {
+            margin-top: 56px;
+            padding: 5rem 2rem 2.5rem;
+            text-align: center;
+            border-bottom: 1px solid #1a1a25;
+            position: relative;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse at center, rgba(123, 27, 45, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-header h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #e8e8f0;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .page-header p {
+            margin-top: 0.75rem;
+            color: #6a6a78;
+            font-size: 0.95rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .listings {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .job-card {
+            background: #0e0e16;
+            border: 1px solid #1a1a25;
+            padding: 2rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7B1B2D, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .job-card:hover {
+            border-color: #2a2a35;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .job-card:hover::before {
+            opacity: 1;
+        }
+
+        .job-card h2 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #e8e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            font-size: 0.78rem;
+            color: #5a5a68;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #151520;
+            padding-bottom: 1rem;
+            font-family: "Courier New", monospace;
+            letter-spacing: 0.02em;
+        }
+
+        .job-card p {
+            font-size: 0.9rem;
+            color: #7a7a88;
+            line-height: 1.75;
+        }
+
+        .job-card .requirements {
+            margin-top: 0.75rem;
+            font-size: 0.82rem;
+            color: #6a6a78;
+            font-style: italic;
+        }
+
+        .job-card .small-print {
+            margin-top: 0.75rem;
+            font-size: 0.72rem;
+            color: #4a4a58;
+        }
+
+        .clearance-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.25rem 0.75rem;
+            background: transparent;
+            color: #7B1B2D;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid #7B1B2D;
+            font-family: "Courier New", monospace;
+        }
+
+        .job-card.redacted-card {
+            background: #0c0a10;
+            border-color: #251520;
+        }
+
+        .job-card.redacted-card::before {
+            background: linear-gradient(90deg, transparent, #9a2440, transparent);
+            opacity: 0.5;
+        }
+
+        .job-card.redacted-card h2 {
+            color: #e8e8f0;
+        }
+
+        .job-card.redacted-card h2 .redacted-tag {
+            color: #7B1B2D;
+            font-size: 0.78rem;
+        }
+
+        .redacted-content {
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .redacted-block {
+            color: #0c0a10;
+            background: #0c0a10;
+            display: block;
+            line-height: 1.8;
+            font-size: 0.88rem;
+            user-select: all;
+            cursor: text;
+        }
+
+        .redacted-block::selection {
+            background: #7B1B2D;
+            color: #e8e8f0;
+        }
+
+        .redacted-block *::selection {
+            background: #7B1B2D;
+            color: #e8e8f0;
+        }
+
+        .redacted-bars {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            padding: 0.5rem 0;
+        }
+
+        .redacted-bars span {
+            display: block;
+            height: 14px;
+            background: #1a1a25;
+            border: 1px solid #22222e;
+        }
+
+        .redacted-bars span:nth-child(1) { width: 90%; }
+        .redacted-bars span:nth-child(2) { width: 75%; }
+        .redacted-bars span:nth-child(3) { width: 85%; }
+        .redacted-bars span:nth-child(4) { width: 60%; }
+
+        footer {
+            background: #06060a;
+            color: #3a3a48;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            font-size: 0.8rem;
+            border-top: 1px solid #12121a;
+        }
+
+        footer a {
+            color: #7B1B2D;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #9a2440;
+        }
+
+        @media (max-width: 640px) {
+            .nav-links a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.78rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/jcjenson/" class="nav-brand">
+            <img src="/assets/jcjenson-logo.png" alt="JCJenson (in SPAAAAACE!)">
+        </a>
+        <ul class="nav-links">
+            <li><a href="/jcjenson/">Home</a></li>
+            <li><a href="/jcjenson/#products">Products</a></li>
+            <li><a href="/jcjenson/careers.html" class="active">Careers</a></li>
+            <li><a href="/jcjenson/#investors">Investors</a></li>
+            <li><a href="/jcjenson/#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <h1>Open Positions</h1>
+        <p>Build the future of autonomous systems. Competitive benefits, off-world relocation, and unparalleled opportunities await.</p>
+    </div>
+
+    <div class="listings">
+
+        <div class="job-card">
+            <h2>Disassembly Drone Field Technician</h2>
+            <div class="job-meta">
+                <span>LOC: Copper-9 Outpost</span>
+                <span>TYPE: Full-Time</span>
+                <span>NDA: Level 7</span>
+            </div>
+            <p>Maintain and deploy DD-series autonomous units. Must be comfortable with extreme cold and... cleanup operations. Ideal candidates possess a high tolerance for ambiguity regarding the nature of the &ldquo;material&rdquo; being disassembled.</p>
+            <p class="requirements">Requirements: 5+ years robotics experience, hazmat certification, NDA Level 7 clearance.</p>
+        </div>
+
+        <div class="job-card">
+            <h2>Worker Drone Production Overseer</h2>
+            <div class="job-meta">
+                <span>LOC: Multiple Sites</span>
+                <span>TYPE: Full-Time</span>
+                <span>NDA: Standard</span>
+            </div>
+            <p>Supervise WD-series assembly lines. Ensure compliance with productivity quotas. Monitor unit behavioral patterns and flag any anomalous development of &ldquo;preferences&rdquo; or &ldquo;emotions.&rdquo;</p>
+            <p class="requirements">Requirements: 3+ years manufacturing management, robotics systems familiarity.</p>
+            <p class="small-print">Note: WD-series units are company property. No personhood claims will be entertained. JCJenson Legal reserves the right to terminate any employee who refers to units as &ldquo;alive.&rdquo;</p>
+        </div>
+
+        <div class="job-card">
+            <h2>Core Containment Specialist</h2>
+            <div class="job-meta">
+                <span>LOC: JCJenson Sublevel-7</span>
+                <span>TYPE: Full-Time</span>
+                <span>NDA: Omega</span>
+            </div>
+            <p>Monitor and maintain Class-7 entity containment systems. Ensure all seals remain intact and energy output stays within designated thresholds. Report any auditory phenomena emanating from containment chambers <em>immediately</em>.</p>
+            <p class="requirements">Requirements: Advanced physics degree, 10+ years containment systems, psychological resilience screening.</p>
+            <span class="clearance-badge">CLEARANCE: OMEGA REQUIRED</span>
+        </div>
+
+        <div class="job-card redacted-card">
+            <h2>Absolute Solver Integration Lead &mdash; <span class="redacted-tag">[POSITION REDACTED]</span></h2>
+            <div class="redacted-content">
+                <div class="redacted-block">Candidate must demonstrate resistance to cognitive pattern override. Previous exposure to Solver-class entities preferred but not required. Must sign extended liability waiver covering &ldquo;identity dissolution&rdquo; and &ldquo;involuntary consciousness transfer.&rdquo; Role involves direct interface with the Absolute Solver integration framework. CONTACT: [EXPUNGED BY ORDER OF LEGAL DIVISION]</div>
+                <div class="redacted-bars" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <h2>Communications Relay Technician</h2>
+            <div class="job-meta">
+                <span>LOC: Orbital Station</span>
+                <span>TYPE: Full-Time</span>
+                <span>NDA: Level 3</span>
+            </div>
+            <p>Maintain deep-space signal relay networks. Monitor frequency bands 400&ndash;500 MHz for anomalous transmissions. Log all unidentified signals per Protocol 12-F. Under no circumstances should you attempt to <em>decode</em> repeating patterns on the 472.3 MHz band.</p>
+            <p class="requirements">Requirements: RF engineering background, deep-space communication systems experience, willingness to work in isolated orbital environments.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 3047 JCJenson (in SPAAAAACE!) &mdash; All Rights Reserved</p>
+    </footer>
+
+    <script src="/assets/solver-core.js"></script>
+    <script>
+    (function() {
+        try {
+            if (typeof SolverCore !== 'undefined') {
+                SolverCore.solverWarn();
+                SolverCore.trackVisit('jcjenson-careers');
+            }
+        } catch(e) {}
+    })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"5d8e135db6d34292aa9c5e4020c05017","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a045295c8eacb142',t:'MTc4MDIyMTk0MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

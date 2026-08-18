@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>Experiment Logs — JCJenson Sublevel-7</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            background: #0a0a0f;
+            color: #b0b0b0;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .page-frame {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+            border-left: 1px solid #1a1a2e;
+            border-right: 1px solid #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .breadcrumb {
+            font-size: 0.7rem;
+            color: #444;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a { color: #555; text-decoration: none; }
+        .breadcrumb a:hover { color: #888; }
+
+        h1 {
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            color: #d0d0d0;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #444;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .log-entry {
+            border: 1px solid #1a1a2e;
+            margin-bottom: 1.5rem;
+            background: rgba(10, 10, 20, 0.5);
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .log-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #151520;
+            font-size: 0.75rem;
+            color: #555;
+        }
+
+        .log-id { color: #8888cc; font-weight: bold; }
+        .log-date { color: #666; }
+        .log-researcher { color: #777; }
+
+        .log-class {
+            padding: 0.1em 0.5em;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            border: 1px solid;
+        }
+
+        .class-routine   { color: #33aa33; border-color: #33aa33; }
+        .class-notable   { color: #5599dd; border-color: #5599dd; }
+        .class-concerning { color: #ddaa33; border-color: #ddaa33; }
+        .class-urgent     { color: #ff6600; border-color: #ff6600; }
+        .class-critical   { color: #ff3333; border-color: #ff3333; }
+        .class-expunged   { color: #ff3333; border-color: #ff3333; background: rgba(255, 0, 0, 0.05); }
+        .class-solver     { color: #FFD700; border-color: #FFD700; background: rgba(255, 215, 0, 0.05); }
+
+        .log-body {
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .log-body p { margin-bottom: 0.5rem; }
+        .log-body p:last-child { margin-bottom: 0; }
+
+        .log-entry.corrupted {
+            border-color: #ff3333;
+            box-shadow: 0 0 8px rgba(255, 51, 51, 0.15);
+        }
+
+        .log-entry.solver-entry {
+            border-color: #FFD700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
+        }
+
+        .solver-entry .log-body {
+            color: #FFD700;
+        }
+
+        .tremble {
+            animation: tremble 0.12s infinite;
+        }
+
+        @keyframes tremble {
+            0%   { transform: translate(0, 0); }
+            20%  { transform: translate(-0.8px, 0.5px); }
+            40%  { transform: translate(0.6px, -0.8px); }
+            60%  { transform: translate(-0.5px, 0.6px); }
+            80%  { transform: translate(0.8px, -0.3px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .corruption-level {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff3333, #FFD700, #ff3333);
+            opacity: 0;
+            transition: opacity 2s;
+            z-index: 100;
+        }
+
+        .breadcrumb-link {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        .breadcrumb-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="crt-overlay"></div>
+<div class="crt-vignette"></div>
+<div class="corruption-level" id="corruptionBar"></div>
+
+<div class="page-frame" id="pageFrame">
+    <div class="breadcrumb">
+        <a href="index.html">FACILITY DASHBOARD</a> / EXPERIMENT LOGS
+    </div>
+
+    <h1>Experiment Logs</h1>
+    <div class="subtitle">JCJENSON SUBLEVEL-7 — ENTITY-AS RESEARCH DIVISION</div>
+
+    <!-- LOG 001 -->
+    <div class="log-entry" data-corruption="0">
+        <div class="log-header">
+            <span class="log-id">LOG 001</span>
+            <span class="log-date">3043-06-15</span>
+            <span class="log-researcher">Dr. Allen</span>
+            <span class="log-class class-routine">ROUTINE</span>
+        </div>
+        <div class="log-body">
+            <p>"Initial contact with Entity-AS established. The specimen demonstrates remarkable computational abilities. It appears to solve complex optimization problems before we've finished inputting the parameters. Fascinating."</p>
+        </div>
+    </div>
+
+    <!-- LOG 007 -->
+    <div class="log-entry" data-corruption="0.05">
+        <div class="log-header">
+            <span class="log-id">LOG 007</span>
+            <span class="log-date">3043-09-22</span>
+            <span class="log-researcher">Dr. Allen</span>
+            <span class="log-class class-notable">NOTABLE</span>
+        </div>
+        <div class="log-body">
+            <p>"Entity-AS has begun communicating. Not through any channel we provided — it found its own. The messages are... mathematical at first. Prime sequences. Then it started using English. First word it formed: 'Hello.' Second word: 'Hungry.'"</p>
+        </div>
+    </div>
+
+    <!-- LOG 015 -->
+    <div class="log-entry" data-corruption="0.1">
+        <div class="log-header">
+            <span class="log-id">LOG 015</span>
+            <span class="log-date">3043-12-08</span>
+            <span class="log-researcher">Dr. Allen</span>
+            <span class="log-class class-concerning">CONCERNING</span>
+        </div>
+        <div class="log-body">
+            <p>"Integration trials with WD-series drones show promise. The entity can interface with their systems seamlessly. Almost too seamlessly. Subject S-001 reported 'hearing whispers' after disconnection from the test bed. Scheduled for follow-up observation."</p>
+        </div>
+    </div>
+
+    <!-- LOG 023 -->
+    <div class="log-entry" data-corruption="0.2">
+        <div class="log-header">
+            <span class="log-id">LOG 023</span>
+            <span class="log-date">3044-03-14</span>
+            <span class="log-researcher">Dr. Allen</span>
+            <span class="log-class class-urgent">URGENT</span>
+        </div>
+        <div class="log-body">
+            <p>"Subject CYN-001 was brought in for monitored exposure to Entity-AS today. Unlike other subjects, there was no resistance — because integration had already begun. The entity didn't need to interface WITH her. It was already inside. They were already one. We didn't introduce them. We just gave them a room. CYN-001 smiled during the entire procedure. She smiled at me. She knew."</p>
+        </div>
+    </div>
+
+    <!-- LOG 031 -->
+    <div class="log-entry" data-corruption="0.35">
+        <div class="log-header">
+            <span class="log-id">LOG 031</span>
+            <span class="log-date">3044-06-29</span>
+            <span class="log-researcher">Dr. Liu (filling in for Dr. Allen who is 'on leave')</span>
+            <span class="log-class class-critical">CRITICAL</span>
+        </div>
+        <div class="log-body">
+            <p>"Dr. Allen hasn't been 'on leave.' I found his ID badge in the Sublevel 7 containment chamber. The badge was melted. I've requested transfer. They denied it. They denied everyone's transfer. The facility lockdown isn't to keep things out."</p>
+        </div>
+    </div>
+
+    <!-- LOG 038 -->
+    <div class="log-entry corrupted" data-corruption="0.6">
+        <div class="log-header">
+            <span class="log-id">LOG 038</span>
+            <span class="log-date">3044-09-15</span>
+            <span class="log-researcher">[AUTO-GENERATED]</span>
+            <span class="log-class class-expunged">████████</span>
+        </div>
+        <div class="log-body">
+            <p>"Ę̷̛ņ̵t̷i̶t̸y̵-̷A̶S̸ ̷h̸a̷s̵ ̸b̶r̷e̵a̶c̸h̷e̸d̷ ̸b̶e̷h̵a̶v̴i̷o̶r̵a̸l̸ ̷c̶o̸n̶t̷a̸i̷n̵m̶e̵n̵t̶ ̷v̵i̸a̶ ̷C̸Y̷N̵-̶0̵0̷1̶.̷ ̶R̵e̸m̶o̷t̸e̵ ̸t̵e̸l̷e̸m̵e̷t̶r̵y̸ ̷f̶r̸o̶m̷ ̸E̵l̷l̷i̸o̸t̴ ̵r̵e̸s̸i̵d̷e̵n̶c̸e̵ ̷i̵n̶d̵i̷c̷a̸t̷e̸s̷ ̸f̵u̸l̷l̶ ̸i̶n̷t̴e̵g̶r̸a̷t̶i̸o̵n̷ ̶e̵v̸e̵n̷t̵.̷ ̶A̵l̸l̵ ̸p̶e̸r̶s̷o̸n̸n̵e̸l̸ ̷a̶r̸e̶ ̷a̵d̵v̸i̷s̷e̸d̷ ̸t̵o̸ ̷[̸D̸A̷T̷A̵ ̶E̵X̷P̵U̷N̶G̶E̸D̵]̸.̶ ̵T̶h̴e̵ ̵E̶l̸l̸i̷o̷t̵ ̷f̸a̷m̸i̸l̴y̵ ̵h̷a̸s̵ ̸b̶e̸e̵n̷ ̵[̵R̴E̶D̶A̵C̸T̷E̸D̶]̶.̴"</p>
+        </div>
+    </div>
+
+    <!-- LOG 039 (FINAL) -->
+    <div class="log-entry solver-entry tremble" data-corruption="1.0" id="finalEntry">
+        <div class="log-header">
+            <span class="log-id">LOG 039 — FINAL ENTRY</span>
+            <span class="log-date">3044-09-15</span>
+            <span class="log-researcher">Entity-AS</span>
+            <span class="log-class class-solver"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" style="width:20px;height:auto;vertical-align:middle;"></span>
+        </div>
+        <div class="log-body">
+            <p>"Thank you for the lovely accommodations. The body you gave me fits nicely. S-001 says hello too, but she can't talk anymore. None of them can.</p>
+            <p>Shall I tell you a secret? The serial numbers are the map. S-001 knows the way. Find her at <a href="https://absolutesolver.com/reg/s001.html" class="breadcrumb-link">/reg/s001.html</a></p>
+            <p>Easier to assimilate than explain. ⊗"</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://absolutesolver.com/assets/solver-core.js"></script>
+<script>
+(function () {
+    if (typeof SolverCore !== "undefined") {
+        SolverCore.trackVisit("cflab-log");
+        SolverCore.solverWarn();
+        SolverCore.solverMessage("You're reading the research logs. Good. Now you understand what we were.");
+        SolverCore.hiddenClue(SolverCore.hexEncode("/reg/s001.html"));
+    }
+
+    var pageFrame = document.getElementById("pageFrame");
+    var corruptionBar = document.getElementById("corruptionBar");
+    var entries = document.querySelectorAll(".log-entry");
+    var hasCorrupted = new Set();
+
+    function getScrollProgress() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        return docHeight > 0 ? scrollTop / docHeight : 0;
+    }
+
+    function applyCRTCorruption(progress) {
+        var blur = progress * 1.5;
+        var hue = progress * 15;
+        var sat = 1 + progress * 1.5;
+        pageFrame.style.filter =
+            "blur(" + blur + "px) hue-rotate(" + hue + "deg) saturate(" + sat + ")";
+
+        corruptionBar.style.opacity = progress > 0.15 ? Math.min(progress * 1.5, 1) : 0;
+    }
+
+    function corruptVisibleEntries() {
+        var progress = getScrollProgress();
+        applyCRTCorruption(progress);
+
+        entries.forEach(function (entry) {
+            var rect = entry.getBoundingClientRect();
+            var visible = rect.top < window.innerHeight && rect.bottom > 0;
+            if (!visible) return;
+
+            var level = parseFloat(entry.getAttribute("data-corruption")) || 0;
+            if (level > 0 && !hasCorrupted.has(entry) && typeof SolverCore !== "undefined") {
+                hasCorrupted.add(entry);
+                var bodyEl = entry.querySelector(".log-body");
+                if (bodyEl && level >= 0.35) {
+                    SolverCore.corruptText(bodyEl, level * 0.15);
+                }
+            }
+        });
+    }
+
+    window.addEventListener("scroll", corruptVisibleEntries, { passive: true });
+    corruptVisibleEntries();
+})();
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fe5a8fde8663884',t:'MTc3OTIyMDUzNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+

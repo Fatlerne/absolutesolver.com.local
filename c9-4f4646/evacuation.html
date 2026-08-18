@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!--
+    LEAKED INTERNAL DOCUMENTS — COPPER-9 EVACUATION
+    Classification: COMPROMISED
+    "The cost of a drone is less than the cost of caring."
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="/1764476138510.png">
+    <link rel="stylesheet" href="/assets/glitch.css">
+    <title>LEAKED — Evacuation Orders</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #060606;
+            color: #a8a090;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 3rem 1.5rem;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: 'LEAKED';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: clamp(5rem, 14vw, 12rem);
+            font-weight: 700;
+            color: #FF3333;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 100;
+            white-space: nowrap;
+            letter-spacing: 0.3em;
+            user-select: none;
+        }
+
+        .doc-stack {
+            max-width: 720px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .paper-sheet {
+            background: #0c0c0c;
+            border: 1px solid #1a1a1a;
+            position: relative;
+            padding: 2rem 2.5rem;
+        }
+
+        .doc-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-align: center;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #1a1a1a;
+            color: #FFD700;
+        }
+
+        .doc-subtitle {
+            font-size: 0.7rem;
+            color: #444;
+            text-align: center;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .option-block {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 2px solid #333;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .option-block.selected {
+            border-left-color: #FF3333;
+            background: rgba(255, 51, 51, 0.03);
+        }
+
+        .option-block h4 {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: #b0a898;
+        }
+
+        .option-field {
+            display: flex;
+            gap: 0.5rem;
+            line-height: 2;
+            font-size: 0.78rem;
+        }
+
+        .option-field .key {
+            min-width: 28ch;
+            flex-shrink: 0;
+            color: #666;
+        }
+
+        .option-field .val {
+            font-weight: 700;
+            color: #b0a898;
+        }
+
+        .option-field .val.reject { color: #FF3333; }
+        .option-field .val.approve { color: #33FF33; }
+        .option-field .val.selected-mark {
+            color: #FF3333;
+            font-weight: 700;
+        }
+
+        .board-note {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #1a1a1a;
+            font-size: 0.78rem;
+            color: #555;
+        }
+
+        .board-note em {
+            color: #888;
+        }
+
+        .handwritten-sheet {
+            background: #0a0a08;
+            border-color: #1a1a14;
+            font-style: italic;
+            font-size: 0.9rem;
+            line-height: 2;
+            color: #c0b8a0;
+            padding: 2rem 2.5rem;
+        }
+
+        .handwritten-sheet p {
+            margin-bottom: 0.75rem;
+        }
+
+        .handwritten-sheet .signature {
+            text-align: right;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #888;
+        }
+
+        .response-sheet {
+            border-top: 2px solid #FF3333;
+        }
+
+        .response-line {
+            line-height: 2.2;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .response-line strong {
+            color: #b0a898;
+        }
+
+        .response-line.struck {
+            text-decoration: line-through;
+            color: #444;
+        }
+
+        .redacted-inline {
+            background: #1a1a1a;
+            color: #1a1a1a;
+            padding: 0 0.3em;
+            cursor: pointer;
+            border: 1px solid #222;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .redacted-inline:hover {
+            background: #FF3333;
+            color: #fff;
+            border-color: #FF3333;
+        }
+
+        .ps-note {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #151515;
+            font-size: 0.75rem;
+            color: #555;
+        }
+
+        .ps-note code {
+            background: #111;
+            padding: 0.1em 0.4em;
+            font-weight: 700;
+            color: #33FF33;
+            border: 1px solid #1a2a1a;
+        }
+
+        .margin-clue {
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            font-size: 0.7rem;
+            color: rgba(255, 51, 51, 0.12);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: all;
+            letter-spacing: 0.05em;
+        }
+
+        .margin-clue::selection {
+            background: #FF3333;
+            color: #fff;
+        }
+
+        .doc-number {
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            font-size: 0.6rem;
+            color: #333;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 1.5rem 0.75rem; }
+            .paper-sheet { padding: 1.5rem; }
+            .margin-clue { display: none; }
+            .option-field { flex-direction: column; gap: 0; }
+            .option-field .key { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="doc-stack">
+
+        <!-- DOCUMENT 1: Cost-Benefit Analysis -->
+        <div class="paper-sheet">
+            <span class="doc-number">DOC-C9-EVA-001</span>
+
+            <div class="doc-title">Copper-9 Evacuation Feasibility Assessment</div>
+            <div class="doc-subtitle">Prepared by: Financial Division</div>
+
+            <div class="option-block">
+                <h4>OPTION A: Full Evacuation</h4>
+                <div class="option-field"><span class="key">Transport costs:</span> <span class="val">$4.2B</span></div>
+                <div class="option-field"><span class="key">Drone unit replacement value:</span> <span class="val">$890M</span></div>
+                <div class="option-field"><span class="key">NET LOSS:</span> <span class="val reject">$3.31B</span></div>
+                <div class="option-field"><span class="key">RECOMMENDATION:</span> <span class="val reject">NOT VIABLE</span></div>
+            </div>
+
+            <div class="option-block">
+                <h4>OPTION B: Selective Evacuation (Priority Assets Only)</h4>
+                <div class="option-field"><span class="key">Transport costs:</span> <span class="val">$340M</span></div>
+                <div class="option-field"><span class="key">Assets recovered:</span> <span class="val">Research data, prototype units</span></div>
+                <div class="option-field"><span class="key">Worker Drone units:</span> <span class="val reject">WRITTEN OFF</span></div>
+                <div class="option-field"><span class="key">RECOMMENDATION:</span> <span class="val approve">APPROVED</span></div>
+            </div>
+
+            <div class="option-block selected">
+                <h4>OPTION C: No Evacuation (Containment)</h4>
+                <div class="option-field"><span class="key">Transport costs:</span> <span class="val">$0</span></div>
+                <div class="option-field"><span class="key">Deploy DD squad for "cleanup":</span> <span class="val">$12M</span></div>
+                <div class="option-field"><span class="key">Total savings vs Option A:</span> <span class="val">$4.188B</span></div>
+                <div class="option-field"><span class="key">RECOMMENDATION:</span> <span class="val selected-mark">&check; SELECTED BY BOARD VOTE (7-1)</span></div>
+            </div>
+
+            <div class="board-note">
+                <strong style="color:#FF3333;">NOTE:</strong> Board member Dr. <span class="redacted-inline">REDACTED</span> voted against.
+                Dr. <span class="redacted-inline">REDACTED</span> was terminated the following day.<br>
+                <em>"For budget reasons."</em>
+            </div>
+        </div>
+
+        <!-- DOCUMENT 2: Dr. Chen's Note -->
+        <div class="paper-sheet handwritten-sheet">
+            <span class="doc-number">DOC-C9-EVA-002</span>
+
+            <p>To whoever finds this:</p>
+
+            <p>
+                They're alive. The Worker Drones. They FEEL things.
+                I've seen them laugh. I've seen them cry.
+                I've seen them hold each other when they're scared.
+            </p>
+
+            <p>
+                And the Board just... voted to kill them all.
+                $4.2 billion to save 3,742 thinking, feeling beings.
+                They chose the money.
+            </p>
+
+            <p>
+                The DD squad isn't a "malfunction containment team."
+                They're executioners. And N, V, J &mdash; they don't even know
+                they used to be Worker Drones themselves.
+            </p>
+
+            <p>
+                The real monsters aren't the Solver.<br>
+                The real monsters wear suits and vote on spreadsheets.
+            </p>
+
+            <p>I'm sorry. I'm so sorry.</p>
+
+            <div class="signature">&mdash; Dr. Chen</div>
+        </div>
+
+        <!-- DOCUMENT 3: The Board's Response -->
+        <div class="paper-sheet response-sheet" style="position: relative;">
+            <span class="doc-number">DOC-C9-EVA-003</span>
+
+            <div class="doc-title">RE: Dr. Chen's "concerns"</div>
+
+            <p class="response-line">
+                Dr. Chen has been reminded that Worker Drones are <strong>PRODUCTS</strong>.
+            </p>
+            <p class="response-line">
+                Products do not have rights. Products do not feel pain.
+            </p>
+            <p class="response-line">
+                The JCJenson EULA is clear on this matter.
+            </p>
+
+            <br>
+
+            <p class="response-line struck">Dr. Chen's access has been revoked.</p>
+            <p class="response-line struck">Dr. Chen's files have been archived.</p>
+            <p class="response-line">Dr. Chen has been <span class="redacted-inline">REDACTED</span>.</p>
+
+            <br>
+
+            <p class="response-line"><strong>This matter is closed.</strong></p>
+
+            <div class="ps-note">
+                <strong style="color:#888;">P.S.</strong> &mdash; Ensure the evacuation order document is never
+                transmitted off-network. The hex reference for the
+                secure archive is <code>0x7368</code>. Filing this under that prefix.
+            </div>
+
+            <span class="margin-clue">0x7368 = the shell. Find it.</span>
+        </div>
+
+    </div>
+
+    <script src="/assets/solver-core.js"></script>
+    <script>
+        (function() {
+            try {
+                if (typeof SolverCore !== 'undefined') {
+                    SolverCore.trackVisit('c9-evacuation');
+                    SolverCore.solverWarn();
+                    SolverCore.solverMessage('Evacuation documents accessed. They chose the money.');
+                    SolverCore.hiddenClue('3078373336383a20746865207368656c6c');
+                }
+            } catch(e) {}
+        })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"5d8e135db6d34292aa9c5e4020c05017","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

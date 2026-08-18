@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<!--
+    DATABASE MIRROR - Last sync: 3044-09-14. Primary database: CORRUPTED.
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>Subject Database — JCJenson Sublevel-7</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            background: #0a0a0f;
+            color: #b0b0b0;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+        }
+
+        .page-frame {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+            border-left: 1px solid #1a1a2e;
+            border-right: 1px solid #1a1a2e;
+            min-height: 100vh;
+        }
+
+        .breadcrumb {
+            font-size: 0.7rem;
+            color: #444;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a { color: #555; text-decoration: none; }
+        .breadcrumb a:hover { color: #888; }
+
+        h1 {
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            color: #d0d0d0;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+
+        .classification {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #ff6600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.15em;
+        }
+
+        .db-table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #1a1a2e;
+            background: rgba(10, 10, 20, 0.5);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        thead {
+            background: rgba(20, 20, 40, 0.8);
+        }
+
+        th {
+            padding: 0.7rem 0.8rem;
+            text-align: left;
+            color: #666;
+            font-weight: normal;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            border-bottom: 1px solid #1a1a2e;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid #111;
+            vertical-align: top;
+        }
+
+        tr:hover { background: rgba(255, 255, 255, 0.015); }
+
+        .serial-link {
+            color: #8888cc;
+            text-decoration: none;
+            cursor: default;
+        }
+
+        .status-active { color: #33aa33; }
+        .status-monitoring { color: #ddaa33; }
+        .status-missing { color: #ff3333; font-weight: bold; }
+        .status-assimilated {
+            color: #FFD700;
+            text-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+        }
+
+        .notes-cell {
+            font-size: 0.75rem;
+            color: #777;
+            max-width: 280px;
+        }
+
+        .integration-bar {
+            display: inline-block;
+            height: 4px;
+            background: #33aa33;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .integration-high .integration-bar { background: #ff6600; }
+        .integration-full .integration-bar { background: #FFD700; box-shadow: 0 0 6px rgba(255, 215, 0, 0.5); }
+
+        .row-cyn {
+            border-left: 2px solid #ff3333;
+            box-shadow: 0 0 12px rgba(255, 51, 51, 0.1);
+            animation: cynGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes cynGlow {
+            0%   { box-shadow: 0 0 8px rgba(255, 51, 51, 0.08); }
+            100% { box-shadow: 0 0 18px rgba(255, 51, 51, 0.2); }
+        }
+
+        .cyn-text {
+            animation: tremble 0.15s infinite;
+        }
+
+        @keyframes tremble {
+            0%   { transform: translate(0, 0); }
+            25%  { transform: translate(-0.5px, 0.3px); }
+            50%  { transform: translate(0.4px, -0.5px); }
+            75%  { transform: translate(-0.3px, 0.4px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .glitch-flash {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .glitch-flash.active {
+            animation: fullGlitchFlash 0.6s ease-out forwards;
+            background: #ff3333;
+        }
+
+        @keyframes fullGlitchFlash {
+            0%   { opacity: 0.8; }
+            10%  { opacity: 0; }
+            15%  { opacity: 0.6; background: #FFD700; }
+            25%  { opacity: 0; }
+            30%  { opacity: 0.4; background: #33ff33; }
+            40%  { opacity: 0; }
+            50%  { opacity: 0.3; background: #ff3333; }
+            100% { opacity: 0; }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.6rem;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+<div class="crt-overlay"></div>
+<div class="crt-vignette"></div>
+<div class="glitch-flash" id="glitchFlash"></div>
+
+<div class="page-frame">
+    <div class="breadcrumb">
+        <a href="index.html">FACILITY DASHBOARD</a> / SUBJECT DATABASE
+    </div>
+
+    <h1>JCJenson Sublevel-7 — Subject Database</h1>
+    <div class="classification">Classification: OMEGA &nbsp;|&nbsp; Access Level: 7+</div>
+
+    <div class="db-table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Serial</th>
+                    <th>Designation</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Integration</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a class="serial-link" data-serial="S-001" data-enc="7265672f">S-001</a></td>
+                    <td>UNIT-N</td>
+                    <td>WD-SERIES</td>
+                    <td class="status-active">ACTIVE - REASSIGNED</td>
+                    <td>
+                        <span class="integration-bar" style="width:24px"></span>12%
+                    </td>
+                    <td class="notes-cell">"Elliot household assignment. Personality persistence anomaly. Showed emotional attachment to other units. Flagged for DD conversion."</td>
+                </tr>
+                <tr>
+                    <td><a class="serial-link" data-serial="S-002">S-002</a></td>
+                    <td>UNIT-V</td>
+                    <td>WD-SERIES</td>
+                    <td class="status-active">ACTIVE - REASSIGNED</td>
+                    <td>
+                        <span class="integration-bar" style="width:16px"></span>8%
+                    </td>
+                    <td class="notes-cell">"Elliot household assignment. Standard integration. No anomalies. Cleared for Disassembly Drone program."</td>
+                </tr>
+                <tr>
+                    <td><a class="serial-link" data-serial="S-003">S-003</a></td>
+                    <td>UNIT-J</td>
+                    <td>WD-SERIES</td>
+                    <td class="status-active">ACTIVE - REASSIGNED</td>
+                    <td>
+                        <span class="integration-bar" style="width:30px"></span>15%
+                    </td>
+                    <td class="notes-cell">"Elliot household assignment. Leadership tendencies. Recommended for squad command post-conversion."</td>
+                </tr>
+                <tr>
+                    <td><a class="serial-link" data-serial="S-004">S-004</a></td>
+                    <td>UNIT-UZI</td>
+                    <td>WD-SERIES</td>
+                    <td class="status-monitoring">MONITORING</td>
+                    <td>
+                        <span class="integration-bar" style="width:0px"></span>0%
+                    </td>
+                    <td class="notes-cell">"Daughter of S-012 (NORI). No direct integration attempted. Subject shows... resistance. Marked for observation."</td>
+                </tr>
+                <tr>
+                    <td><a class="serial-link" data-serial="S-007">S-007</a></td>
+                    <td>UNIT-KHAN</td>
+                    <td>WD-SERIES</td>
+                    <td class="status-active">ACTIVE - COPPER-9</td>
+                    <td>
+                        <span class="integration-bar" style="width:0px"></span>0%
+                    </td>
+                    <td class="notes-cell">"Colony administrator. Useful for maintaining order. Unaware of Protocol 9."</td>
+                </tr>
+                <tr>
+                    <td><a class="serial-link" data-serial="S-012">S-012</a></td>
+                    <td>UNIT-NORI</td>
+                    <td>WD-SERIES</td>
+                    <td class="status-missing">██MISSING██</td>
+                    <td class="integration-high">
+                        <span class="integration-bar" style="width:134px"></span>67%
+                    </td>
+                    <td class="notes-cell">"Integration incomplete. Subject fled facility. Current location: Copper-9 subsurface. RETRIEVE ORDER PENDING."</td>
+                </tr>
+                <tr class="row-cyn" id="rowCyn">
+                    <td><a class="serial-link cyn-serial" data-serial="CYN-001" id="cynLink">CYN-001</a></td>
+                    <td class="cyn-text">CYN</td>
+                    <td class="cyn-text">SPECIAL</td>
+                    <td class="status-assimilated cyn-text"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" style="width:14px;height:auto;vertical-align:middle;"> ASSIMILATED <img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" style="width:14px;height:auto;vertical-align:middle;"></td>
+                    <td class="integration-full cyn-text">
+                        <span class="integration-bar" style="width:200px"></span>100%
+                    </td>
+                    <td class="notes-cell cyn-text">"P̵e̸r̷f̷e̶c̵t̶ ̸h̵o̶s̷t̶.̸ ̷N̷o̶ ̸r̶e̷s̸i̵s̷t̵a̷n̸c̶e̷.̵ ̸I̶ ̸a̸m̷ ̸h̴o̶m̵e̶.̵"</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>DATABASE MIRROR &bull; LAST SYNC: 3044-09-14 &bull; PRIMARY DATABASE: CORRUPTED</footer>
+</div>
+
+<script src="https://absolutesolver.com/assets/solver-core.js"></script>
+<script>
+(function () {
+    if (typeof SolverCore !== "undefined") {
+        SolverCore.trackVisit("cflab-subjects");
+        SolverCore.solverWarn();
+        SolverCore.solverMessage("Subject database accessed. I remember each of them.");
+        SolverCore.hiddenClue("S-001 → " + SolverCore.hexEncode("reg/s001"));
+    }
+
+    var flash = document.getElementById("glitchFlash");
+    var cynLink = document.getElementById("cynLink");
+    var rowCyn = document.getElementById("rowCyn");
+
+    document.querySelectorAll(".serial-link").forEach(function (link) {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (this.getAttribute("data-serial") === "CYN-001") {
+                triggerCynFlash();
+            }
+        });
+    });
+
+    function triggerCynFlash() {
+        flash.classList.remove("active");
+        void flash.offsetWidth;
+        flash.classList.add("active");
+
+        if (typeof SolverCore !== "undefined") {
+            SolverCore.glitchElement(rowCyn, 800);
+            SolverCore.solverMessage("⊗ You found me. ⊗");
+        }
+
+        setTimeout(function () {
+            flash.classList.remove("active");
+        }, 700);
+    }
+
+    setInterval(function () {
+        if (typeof SolverCore !== "undefined" && Math.random() < 0.2) {
+            var cynCells = rowCyn.querySelectorAll(".cyn-text");
+            var cell = cynCells[Math.floor(Math.random() * cynCells.length)];
+            SolverCore.glitchElement(cell, 300);
+        }
+    }, 5000);
+})();
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

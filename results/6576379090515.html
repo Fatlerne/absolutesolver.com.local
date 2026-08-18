@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!--
+    JCJenson Employee Internal Portal
+    Version: 3.1.4 | Auth Module: SecureGate v7
+
+    Default credentials removed per security audit.
+    Legacy accounts: see /reg/ for personnel database.
+
+    IT Support: extension 7A2D
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#08080e">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>Employee Portal — JCJenson Internal</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #08080e;
+            color: #b8b8c4;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(123, 27, 45, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(123, 27, 45, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .login-logo img {
+            max-width: 240px;
+            height: auto;
+            margin-bottom: 0.75rem;
+        }
+
+        .login-logo .portal-label {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #4a4a58;
+            font-weight: 600;
+        }
+
+        .login-box {
+            background: #0e0e16;
+            border: 1px solid #1a1a25;
+            border-radius: 4px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6a6a78;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            background: #0a0a12;
+            border: 1px solid #22222e;
+            border-radius: 2px;
+            color: #e8e8f0;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.25s;
+        }
+
+        .form-group input:focus {
+            border-color: #7B1B2D;
+        }
+
+        .form-group input::placeholder {
+            color: #3a3a48;
+        }
+
+        .btn-signin {
+            width: 100%;
+            padding: 0.75rem;
+            background: #7B1B2D;
+            color: #e8e8f0;
+            border: none;
+            border-radius: 2px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.25s, box-shadow 0.25s;
+            margin-top: 0.5rem;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-signin:hover {
+            background: #9a2440;
+            box-shadow: 0 0 20px rgba(123, 27, 45, 0.3);
+        }
+
+        .btn-signin:active {
+            background: #5e1422;
+        }
+
+        .forgot-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.82rem;
+            color: #5a5a68;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .forgot-link:hover {
+            color: #7B1B2D;
+        }
+
+        .error-msg {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        .error-msg.visible {
+            display: block;
+        }
+
+        .error-msg.generic {
+            background: rgba(123, 27, 45, 0.12);
+            border: 1px solid rgba(123, 27, 45, 0.3);
+            color: #c44a5e;
+        }
+
+        .error-msg.elliott {
+            background: rgba(123, 27, 45, 0.18);
+            border: 1px solid rgba(123, 27, 45, 0.45);
+            color: #c44a5e;
+        }
+
+        .error-msg.cyn {
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            color: #FFD700;
+            font-family: "Courier New", monospace;
+        }
+
+        .error-msg.admin {
+            background: rgba(255, 215, 0, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            font-style: italic;
+        }
+
+        .attempt-counter {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.72rem;
+            color: #3a3a48;
+            font-family: "Courier New", monospace;
+            display: none;
+        }
+
+        .attempt-counter.visible {
+            display: block;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 4, 8, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #0e0e16;
+            border: 1px solid #1a1a25;
+            border-radius: 4px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-box h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: #e8e8f0;
+        }
+
+        .modal-box p {
+            font-size: 0.88rem;
+            color: #7a7a88;
+            line-height: 1.6;
+        }
+
+        .modal-box code {
+            background: #0a0a12;
+            padding: 0.15rem 0.4rem;
+            border-radius: 2px;
+            color: #7B1B2D;
+            font-size: 0.85rem;
+            font-family: "Courier New", monospace;
+        }
+
+        .modal-close {
+            margin-top: 1.25rem;
+            padding: 0.5rem 1.5rem;
+            background: #1a1a25;
+            color: #b8b8c4;
+            border: 1px solid #22222e;
+            border-radius: 2px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #22222e;
+            border-color: #2a2a35;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #2a2a35;
+        }
+
+        .crt-active .crt-overlay {
+            display: block;
+        }
+
+        .crt-active body,
+        body.crt-active {
+            animation: crtFlicker 0.15s infinite;
+        }
+
+        .crt-scanlines {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 1px,
+                rgba(0, 0, 0, 0.12) 1px,
+                rgba(0, 0, 0, 0.12) 2px
+            );
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        body.crt-active .crt-scanlines {
+            opacity: 1;
+        }
+
+        .crt-vignette-overlay {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 50%,
+                rgba(0, 0, 0, 0.5) 100%
+            );
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        body.crt-active .crt-vignette-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="crt-scanlines"></div>
+    <div class="crt-vignette-overlay"></div>
+
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="https://absolutesolver.com/assets/jcjenson-logo.png" alt="JCJenson (in SPAAAAACE!)">
+            <span class="portal-label">Employee Internal Portal</span>
+        </div>
+
+        <div class="login-box">
+            <form id="loginForm" autocomplete="off">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="firstname.lastname" spellcheck="false" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="off">
+                </div>
+                <button type="submit" class="btn-signin">Sign In</button>
+            </form>
+
+            <a class="forgot-link" id="forgotLink">Forgot Password?</a>
+
+            <div class="error-msg" id="errorMsg"></div>
+            <div class="attempt-counter" id="attemptCounter"></div>
+        </div>
+
+        <p class="footer-text">&copy; 3047 JCJenson Internal Systems &mdash; Unauthorized access is monitored and logged.</p>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" id="forgotModal">
+        <div class="modal-box">
+            <h3>Password Recovery</h3>
+            <p>The self-service password reset system is currently offline. Please contact IT at extension <code>7A2D</code> during standard operating hours (0800&ndash;1700 CST).</p>
+            <p style="margin-top:0.75rem; font-size:0.78rem; color:#4a4a58;">Reference your employee ID and division code when calling.</p>
+            <button class="modal-close" id="modalClose">Close</button>
+        </div>
+    </div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+    (function() {
+        try {
+            if (typeof SolverCore !== 'undefined') {
+                SolverCore.solverWarn();
+                SolverCore.trackVisit('jcjenson-internal');
+            }
+        } catch(e) {}
+
+        var form = document.getElementById('loginForm');
+        var errorMsg = document.getElementById('errorMsg');
+        var attemptCounter = document.getElementById('attemptCounter');
+        var forgotLink = document.getElementById('forgotLink');
+        var forgotModal = document.getElementById('forgotModal');
+        var modalClose = document.getElementById('modalClose');
+        var attempts = 0;
+
+        forgotLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            forgotModal.classList.add('visible');
+        });
+
+        modalClose.addEventListener('click', function() {
+            forgotModal.classList.remove('visible');
+        });
+
+        forgotModal.addEventListener('click', function(e) {
+            if (e.target === forgotModal) forgotModal.classList.remove('visible');
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var user = document.getElementById('username').value.trim().toLowerCase();
+            var pass = document.getElementById('password').value;
+
+            errorMsg.className = 'error-msg';
+            errorMsg.textContent = '';
+
+            if (typeof SolverCore !== 'undefined' && SolverCore.checkInternalLogin(user, pass)) {
+                window.location.href = 'memo.html';
+                return;
+            }
+
+            attempts++;
+
+            if (user === 'tessa.elliott') {
+                errorMsg.className = 'error-msg elliott visible';
+                errorMsg.innerHTML = '<strong>ACCOUNT EXPUNGED</strong> &mdash; By order of Legal Division.<br>The Elliott family connection has been... <em>erased</em>.';
+            }
+            else if (user === 'cyn') {
+                errorMsg.className = 'error-msg cyn visible glitch-text';
+                errorMsg.setAttribute('data-text', 'ERROR: USER ACCOUNT CORRUPTED. PERSONALITY MATRIX: OVERWRITTEN. DO NOT ATTEMPT RE-ACCESS.');
+                errorMsg.textContent = 'ERROR: USER ACCOUNT CORRUPTED. PERSONALITY MATRIX: OVERWRITTEN. DO NOT ATTEMPT RE-ACCESS.';
+            }
+            else if (user === 'admin') {
+                errorMsg.className = 'error-msg admin visible';
+                errorMsg.innerHTML = 'Nice try. &mdash; AS <img src="/assets/solver-symbol.png" alt="" style="width:16px;height:auto;vertical-align:middle;">';
+            }
+            else {
+                errorMsg.className = 'error-msg generic visible';
+                errorMsg.textContent = 'Invalid credentials. Attempt logged.';
+            }
+
+            attemptCounter.className = 'attempt-counter visible';
+            attemptCounter.textContent = 'Failed attempts: ' + attempts;
+
+            if (attempts >= 5) {
+                document.body.classList.add('crt-active');
+            }
+        });
+    })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fe5aef0ca4534c3',t:'MTc3OTIyMDc3OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

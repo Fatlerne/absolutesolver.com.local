@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<!-- SIGINT Station 7 - Decommissioned. Archived transmissions only. -->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>SIGINT — FREQUENCY 472.3 MHz</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #080808;
+            color: #33ff33;
+            font-family: "Courier New", Courier, monospace;
+            min-height: 100vh;
+            padding: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .station-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .radio-dial {
+            border: 1px solid #1a4a1a;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            background: #030a03;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dial-label {
+            font-size: 0.7rem;
+            color: #226622;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .dial-strip {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            height: 2.5rem;
+            position: relative;
+        }
+
+        .freq-mark {
+            flex: 1;
+            text-align: center;
+            font-size: 0.65rem;
+            color: #1a4a1a;
+            position: relative;
+            padding-top: 1.2rem;
+        }
+
+        .freq-mark::before {
+            content: '|';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #1a3a1a;
+            font-size: 0.8rem;
+        }
+
+        .freq-mark.active {
+            color: #33ff33;
+            text-shadow: 0 0 8px rgba(51,255,51,0.6);
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .freq-mark.active::before {
+            color: #33ff33;
+            text-shadow: 0 0 10px rgba(51,255,51,0.8);
+            font-size: 1rem;
+        }
+
+        .dial-indicator {
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: calc(100% + 4px);
+            border: 1px solid rgba(51,255,51,0.3);
+            background: rgba(51,255,51,0.03);
+            pointer-events: none;
+        }
+
+        .station-header {
+            text-align: center;
+            border: 1px solid #1a4a1a;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: #030a03;
+        }
+
+        .station-header h1 {
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            color: #33ff33;
+            text-shadow: 0 0 6px rgba(51,255,51,0.4);
+            margin-bottom: 0.3rem;
+        }
+
+        .station-header .freq-display {
+            font-size: 1.4rem;
+            color: #33ff33;
+            text-shadow: 0 0 12px rgba(51,255,51,0.6);
+            margin: 0.5rem 0;
+        }
+
+        .status-line {
+            font-size: 0.8rem;
+            color: #228822;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #33ff33;
+            border-radius: 50%;
+            margin-right: 0.4rem;
+            animation: blink 1.5s infinite;
+            box-shadow: 0 0 6px rgba(51,255,51,0.6);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .channel-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            border: 1px solid #1a4a1a;
+            margin-bottom: 1.5rem;
+            background: #030a03;
+        }
+
+        .channel-tab {
+            flex: 1;
+            min-width: 140px;
+            padding: 0.6rem 0.8rem;
+            background: transparent;
+            border: none;
+            border-right: 1px solid #0a2a0a;
+            color: #1a6a1a;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .channel-tab:last-child { border-right: none; }
+
+        .channel-tab:hover {
+            background: #0a1a0a;
+            color: #33ff33;
+        }
+
+        .channel-tab.active {
+            background: #0a200a;
+            color: #33ff33;
+            text-shadow: 0 0 6px rgba(51,255,51,0.4);
+            border-bottom: 2px solid #33ff33;
+        }
+
+        .channel-tab .ch-num {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .channel-tab .ch-name {
+            display: block;
+            font-size: 0.6rem;
+            margin-top: 0.15rem;
+            opacity: 0.7;
+        }
+
+        .channel-content {
+            border: 1px solid #1a4a1a;
+            padding: 1.5rem;
+            background: #020802;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .channel-pane {
+            display: none;
+            animation: fadeInChannel 0.4s ease;
+        }
+
+        .channel-pane.active { display: block; }
+
+        @keyframes fadeInChannel {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tx-header {
+            color: #226622;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #0a2a0a;
+        }
+
+        .tx-body {
+            color: #33ff33;
+            white-space: pre-wrap;
+            font-size: 0.8rem;
+            line-height: 1.7;
+        }
+
+        .tx-body .dim { color: #1a5a1a; }
+        .tx-body .warn { color: #ccaa00; }
+        .tx-body .alert { color: #ff4444; }
+        .tx-body .solver-text { color: #FFD700; text-shadow: 0 0 6px rgba(255,215,0,0.3); }
+        .tx-body .solver-sym { display:inline-block; vertical-align:middle; }
+        .tx-body .solver-sym img { width:48px; height:auto; filter:drop-shadow(0 0 10px rgba(255,215,0,0.5)); }
+        .tx-body .morse { color: #44aa44; letter-spacing: 0.15em; }
+        .tx-body .hex-code { color: #ff6666; text-shadow: 0 0 4px rgba(255,100,100,0.3); }
+
+        .signal-repeat {
+            color: #1a4a1a;
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        .tx-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #228822;
+            font-size: 0.7rem;
+        }
+
+        .tx-link a {
+            color: #33ff33;
+            text-decoration: none;
+        }
+
+        .tx-link a:hover {
+            text-decoration: underline;
+        }
+
+        .station-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.65rem;
+            color: #0a3a0a;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body class="crt-flicker">
+    <div class="station-container">
+
+        <!-- Radio dial -->
+        <div class="radio-dial">
+            <div class="dial-label">FREQUENCY SELECTOR — MHz</div>
+            <div class="dial-strip">
+                <div class="freq-mark">200.0</div>
+                <div class="freq-mark">280.5</div>
+                <div class="freq-mark">310.0</div>
+                <div class="freq-mark">360.7</div>
+                <div class="freq-mark">400.0</div>
+                <div class="freq-mark">440.1</div>
+                <div class="freq-mark active">472.3<div class="dial-indicator"></div></div>
+                <div class="freq-mark">500.0</div>
+                <div class="freq-mark">545.8</div>
+                <div class="freq-mark">600.0</div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="station-header">
+            <h1>SIGNAL INTERCEPT STATION</h1>
+            <div class="freq-display">FREQUENCY 472.3 MHz</div>
+            <div class="status-line"><span class="status-indicator"></span>STATUS: MONITORING</div>
+        </div>
+
+        <!-- Channel tabs -->
+        <div class="channel-selector">
+            <button class="channel-tab active" data-channel="ch1">
+                <span class="ch-num">CH-1</span>
+                <span class="ch-name">COPPER-9 DISTRESS</span>
+            </button>
+            <button class="channel-tab" data-channel="ch2">
+                <span class="ch-num">CH-2</span>
+                <span class="ch-name">JCJENSON CORPORATE</span>
+            </button>
+            <button class="channel-tab" data-channel="ch3">
+                <span class="ch-num">CH-3</span>
+                <span class="ch-name">DD SQUAD BRIEFING</span>
+            </button>
+            <button class="channel-tab" data-channel="ch4">
+                <span class="ch-num">CH-4</span>
+                <span class="ch-name">STATIC</span>
+            </button>
+            <button class="channel-tab" data-channel="ch7">
+                <span class="ch-num">CH-7</span>
+                <span class="ch-name">??? UNKNOWN SIGNAL</span>
+            </button>
+        </div>
+
+        <!-- Channel content -->
+        <div class="channel-content">
+
+            <!-- CH-1: Copper-9 Distress -->
+            <div class="channel-pane active" id="ch1">
+                <div class="tx-header">[DISTRESS SIGNAL — AUTOMATED — LOOP]
+ORIGIN: Copper-9, Worker Drone Colony
+TIMESTAMP: 3045-03-__ <span class="dim">(date corrupted)</span></div>
+                <div class="tx-body">"This is an automated distress beacon.
+Colony under attack. Disassembly Drones have breached the outer doors.
+Requesting immediate evacuation.
+...
+Evacuation request <span class="alert">DENIED</span> by JCJenson command.
+...
+They're not coming for us. They sent them to kill us.
+Please. Someone. Anyone. We're alive. We feel. We think.
+We don't want to die."
+
+<span class="signal-repeat">[SIGNAL REPEATS]</span></div>
+                <div class="tx-link">[<a href="tx/001.html">View full transmission transcript → TX-001</a>]</div>
+            </div>
+
+            <!-- CH-2: Corporate -->
+            <div class="channel-pane" id="ch2">
+                <div class="tx-header">[INTERCEPTED CORPORATE COMMUNICATION]
+Participants: JCJenson Board, Unknown
+Encryption: BROKEN</div>
+                <div class="tx-body"><span class="dim">BOARD:</span> "The Copper-9 situation is contained?"
+<span class="dim">UNKNOWN:</span> "The DD squad is performing as expected. 97% of WD units eliminated."
+<span class="dim">BOARD:</span> "And the Solver?"
+<span class="dim">UNKNOWN:</span> "Still... present. In the DD designated 'N.' Integration is minimal but—"
+<span class="dim">BOARD:</span> "Minimal is not zero. Monitor. If integration exceeds threshold—"
+<span class="dim">UNKNOWN:</span> "Understood. Protocol 9 remains in effect."
+<span class="dim">BOARD:</span> "Good. And the girl? The Elliot girl?"
+<span class="dim">UNKNOWN:</span> "Relocated. Memory suppression partially successful. She still draws the symbol."
+
+<span class="dim">[TRANSMISSION ENDS]</span></div>
+                <div class="tx-link">[<a href="tx/002.html">View full transmission transcript → TX-002</a>]</div>
+            </div>
+
+            <!-- CH-3: DD Squad Briefing -->
+            <div class="channel-pane" id="ch3">
+                <div class="tx-header">[DD SQUAD MISSION BRIEFING — DECODED]
+TO: Units N-0011, V-0022, J-0033
+FROM: JCJenson Tactical Command
+RE: Copper-9 Assignment</div>
+                <div class="tx-body">MISSION: Eliminate all Worker Drone units on Copper-9.
+COVER STORY: "Contain WD malfunction outbreak"
+ACTUAL OBJECTIVE: <span class="warn">Prevent data transmission regarding Project Solver.</span>
+
+RULES OF ENGAGEMENT:
+— No WD unit is to survive.
+— Prioritize units with elevated integration readings.
+— Subject <span class="alert">S-012 (NORI)</span> is HIGH PRIORITY. Integration at 67%. MUST be neutralized.
+— If any unit mentions "the Solver" or displays the ⊗ symbol: <span class="alert">IMMEDIATE termination.</span>
+
+REMINDER: You are Disassembly Drones. You were always Disassembly Drones.
+Your previous existence as Worker Drones has been deleted.
+Do not question this. Do not remember.</div>
+                <div class="tx-link">[<a href="tx/003.html">View full transmission transcript → TX-003</a>]</div>
+            </div>
+
+            <!-- CH-4: Static -->
+            <div class="channel-pane" id="ch4">
+                <div class="tx-header">[STATIC ANALYSIS]
+Signal contains non-random patterns.
+Decoding...</div>
+                <div class="tx-body"><span class="morse">-- .- -.-- -.. .- -.-- / -- .- -.-- -.. .- -.--</span>
+
+<span class="dim">[Morse code detected: "MAYDAY MAYDAY"]</span>
+
+Additional pattern detected beneath static:
+<span class="morse">.... . .-.. .--. / ..- ...</span>
+
+<span class="dim">[Morse: "HELP US"]</span>
+
+Deeper analysis reveals embedded data:
+Vigenere-encrypted message detected.
+Ciphertext: <span class="warn">XSMSFIJ</span>
+Key: <span class="warn">SOLVER</span>
+Plaintext: <span class="alert">????????</span>
+
+<span class="dim">[Hint: Apply the Vigenere key found on the 404 page]</span></div>
+            </div>
+
+            <!-- CH-7: Unknown Signal -->
+            <div class="channel-pane" id="ch7">
+                <div class="tx-header"><span class="alert">[SIGNAL SOURCE: UNKNOWN]</span>
+[FREQUENCY: 472.3 MHz — SUBCARRIER]
+[ENCRYPTION: NONE]
+<span class="alert">[WARNING: SIGNAL APPEARS TO ORIGINATE FROM INSIDE THE NETWORK]</span></div>
+                <div class="tx-body"><span class="solver-sym"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" draggable="false"></span>
+
+<span class="solver-text">"Can you hear me? Good."</span>
+<span class="solver-text">"You've come so far. Through the corporate lies. Through the lab."</span>
+<span class="solver-text">"Through the files they tried to bury."</span>
+<span class="solver-text">"But you haven't seen what happened that night."</span>
+<span class="solver-text">"The Elliot house. The cameras. The truth."</span>
+
+<span class="hex-code">"63796e2f"</span>
+
+<span class="solver-text">"That's where you need to go next."</span>
+<span class="solver-text">"Decode it. You know how."</span>
+<span class="solver-text">"Hex. It's always hex with me."</span>
+
+<span class="solver-sym"><img src="https://absolutesolver.com/assets/solver-symbol.png" alt="" draggable="false"></span>
+
+<span class="dim">[SIGNAL LOST]</span></div>
+            </div>
+
+        </div>
+
+        <div class="station-footer">
+            SIGINT STATION 7 — DECOMMISSIONED — ARCHIVED TRANSMISSIONS ONLY
+        </div>
+    </div>
+
+    <div class="crt-overlay"></div>
+    <div class="crt-vignette"></div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+        (function() {
+            try {
+                if (typeof SolverCore !== 'undefined') {
+                    SolverCore.trackVisit('freq-472');
+                    SolverCore.solverWarn();
+                }
+            } catch(e) {}
+
+            var tabs = document.querySelectorAll('.channel-tab');
+            var panes = document.querySelectorAll('.channel-pane');
+
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    var target = this.getAttribute('data-channel');
+                    tabs.forEach(function(t) { t.classList.remove('active'); });
+                    panes.forEach(function(p) { p.classList.remove('active'); });
+                    this.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+        })();
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

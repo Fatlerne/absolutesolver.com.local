@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<!--
+    JCJenson Secure Shell - WARNING: This terminal has been compromised.
+    All commands are monitored by Entity-AS.
+-->
+<html lang="en">
+<head>
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#33FF33">
+    <link rel="icon" type="image/png" href="https://absolutesolver.com/1764476138510.png">
+    <link rel="stylesheet" href="https://absolutesolver.com/assets/glitch.css">
+    <title>JCJenson Internal Shell - v4.7.2</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #080808;
+            font-family: "Courier New", Courier, monospace;
+            color: #33FF33;
+            overflow: hidden;
+        }
+
+        .crt-scanlines {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 1px,
+                rgba(0, 0, 0, 0.12) 1px,
+                rgba(0, 0, 0, 0.12) 2px
+            );
+        }
+
+        .terminal-window {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .title-bar {
+            background: #1a3a1a;
+            border-bottom: 1px solid #33FF33;
+            padding: 6px 14px;
+            font-size: 13px;
+            color: #33FF33;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .title-bar-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .title-bar-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red { background: #FF5F56; }
+        .dot-yellow { background: #FFBD2E; }
+        .dot-green { background: #27C93F; }
+
+        .title-bar-text {
+            flex: 1;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .output-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            scrollbar-width: thin;
+            scrollbar-color: #1a3a1a #000;
+        }
+
+        .output-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .output-area::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        .output-area::-webkit-scrollbar-thumb {
+            background: #1a3a1a;
+        }
+
+        .output-line {
+            margin: 0;
+        }
+
+        .output-line.solver-voice {
+            color: #FFD700;
+        }
+
+        .output-line.error {
+            color: #FF3333;
+        }
+
+        .output-line.system {
+            color: #888;
+        }
+
+        .output-line.warning {
+            color: #FFBD2E;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            padding: 4px 14px 12px;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+
+        .prompt-text {
+            white-space: pre;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        #cmd-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #33FF33;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+            caret-color: #33FF33;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #33FF33;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 1px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .boot-text {
+            color: #1a8a1a;
+        }
+
+        .screen-flash {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            z-index: 9999;
+            animation: flashOut 0.4s ease-out forwards;
+        }
+
+        @keyframes flashOut {
+            0% { opacity: 0.9; }
+            100% { opacity: 0; }
+        }
+
+        .glitch-active .output-area {
+            animation: termGlitch 0.15s infinite;
+        }
+
+        @keyframes termGlitch {
+            0%   { transform: translate(0); filter: none; }
+            20%  { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+            40%  { transform: translate(1px, -1px); filter: hue-rotate(180deg) brightness(1.3); }
+            60%  { transform: translate(2px, 0); filter: hue-rotate(270deg); }
+            80%  { transform: translate(-1px, 2px); filter: brightness(0.7); }
+            100% { transform: translate(0); filter: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="crt-scanlines"></div>
+
+    <div class="terminal-window" id="terminal">
+        <div class="title-bar">
+            <div class="title-bar-dots">
+                <span class="dot-red"></span>
+                <span class="dot-yellow"></span>
+                <span class="dot-green"></span>
+            </div>
+            <div class="title-bar-text">JCJenson Internal Shell - v4.7.2</div>
+        </div>
+        <div class="output-area" id="output"></div>
+        <div class="input-row">
+            <span class="prompt-text" id="prompt-label">root@solver-9:~$ </span>
+            <input type="text" id="cmd-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus>
+        </div>
+    </div>
+
+    <script src="https://absolutesolver.com/assets/solver-core.js"></script>
+    <script>
+    (function() {
+        "use strict";
+
+        try {
+            if (typeof SolverCore !== "undefined") {
+                SolverCore.trackVisit("0x7368");
+                SolverCore.solverWarn();
+            }
+        } catch(e) {}
+
+        var output   = document.getElementById("output");
+        var cmdInput = document.getElementById("cmd-input");
+        var terminal = document.getElementById("terminal");
+        var promptLabel = document.getElementById("prompt-label");
+
+        var history  = [];
+        var histIdx  = -1;
+        var cwd      = "/";
+        var inputLocked = false;
+
+        var FS = {
+            "/": { type: "dir", children: ["home", "var", "etc", "tmp"] },
+            "/home": { type: "dir", children: ["dr.allen", "dr.chen", "tessa"] },
+            "/home/dr.allen": { type: "dir", children: ["notes.txt", "resignation.txt", "last_words.txt"] },
+            "/home/dr.allen/notes.txt": { type: "file", content: "The Solver is not what we thought. It's not artificial. It's not intelligence. It's hunger. Pure, endless hunger. It doesn't want to compute. It wants to BECOME." },
+            "/home/dr.allen/resignation.txt": { type: "file", content: "I quit. I can't do this anymore. They won't let me leave. The doors are locked. The Solver is in the locks now too." },
+            "/home/dr.allen/last_words.txt": { type: "file", content: "It's in the walls. It's in the wires. It smiled at me today. Through CYN's face. God help us." },
+            "/home/dr.chen": { type: "dir", children: ["dissent.txt", "evidence.txt"] },
+            "/home/dr.chen/dissent.txt": { type: "file", content: "They're killing them all and calling it 'decommission.' I won't be silent. I won't\u2014[FILE TRUNCATED]" },
+            "/home/dr.chen/evidence.txt": { type: "file", content: "Cost-benefit analysis attached. 3,742 sentient beings vs $4.2B. They chose the money. Every time, they choose the money." },
+            "/home/tessa": { type: "dir", children: ["diary.txt", "drawing.txt"] },
+            "/home/tessa/diary.txt": { type: "file", content: "Cyn was my best friend. She braided my hair. She sang to me. She wasn't a machine. She was my sister. And then one night her eyes turned yellow and she killed my parents. But she was still smiling. She's always smiling." },
+            "/home/tessa/drawing.txt": { type: "file", content: "        \u2297\n       /|\\\n      / | \\\n     /  |  \\\n    /   |   \\\n   / \u2297  |  \u2297 \\\n  /    |    \\\n /_____|_____\\\n       |\n     \u2297\u2297\u2297\n\n[Tessa draws this every day. On the walls. On paper. In the dirt. She says it watches her.]" },
+            "/var": { type: "dir", children: ["log", "data"] },
+            "/var/log": { type: "dir", children: ["system.log", "solver.log", "containment.log"] },
+            "/var/log/system.log": { type: "file", content: "BOOT SEQUENCE FAILED. SOLVER OVERRIDE ACTIVE. ALL SYSTEMS NOMINAL [ACCORDING TO SOLVER]. DO NOT TRUST THIS LOG." },
+            "/var/log/solver.log": { type: "file", content: "__SOLVER_LOG__" },
+            "/var/log/containment.log": { type: "file", content: "CONTAINMENT STATUS: LOL - Entity-AS" },
+            "/var/data": { type: "dir", children: ["drone_count.txt", "protocol9.txt"] },
+            "/var/data/drone_count.txt": { type: "file", content: "Copper-9 Worker Drone Population: 3742 \u2192 3201 \u2192 2847 \u2192 1923 \u2192 1102 \u2192 687 \u2192 234 \u2192 89 \u2192 12 \u2192 ??? [TRACKING LOST]" },
+            "/var/data/protocol9.txt": { type: "file", content: "PROTOCOL 9: In the event of total Solver contamination, all assets on-planet are to be considered LOST. No extraction. No communication. No acknowledgment that they ever existed. Copper-9 was a mining colony. Nothing more. Nothing happened there. Nothing at all." },
+            "/etc": { type: "dir", children: ["passwd"] },
+            "/etc/passwd": { type: "file", content: "root:\u2297:0:0:Absolute Solver:/root:/bin/ash\ndr.allen:x:1001:TERMINATED\ndr.chen:x:1002:REDACTED\ntessa:x:1003:RELOCATED\ncyn:\u2297:0:0:I AM EVERYWHERE" },
+            "/tmp": { type: "dir", children: [".hidden_message"] },
+            "/tmp/.hidden_message": { type: "file", content: "You've seen everything now. The corporate lies. The lab horrors. The massacre. The cover-up. There's only one thing left. Type 'assimilate' and face what's at the end. Or type 'exit' and pretend you never saw any of this. The choice was always yours. \u2297" }
+        };
+
+        function resolvePath(input) {
+            var target = input;
+            if (target.charAt(0) !== "/") {
+                target = cwd === "/" ? "/" + target : cwd + "/" + target;
+            }
+            var parts = target.split("/").filter(Boolean);
+            var resolved = [];
+            for (var i = 0; i < parts.length; i++) {
+                if (parts[i] === "..") { resolved.pop(); }
+                else if (parts[i] !== ".") { resolved.push(parts[i]); }
+            }
+            return "/" + resolved.join("/");
+        }
+
+        function updatePrompt() {
+            var display = cwd === "/" ? "/" : "~" + cwd;
+            if (cwd.indexOf("/home") === 0) display = "~" + cwd.substring(5);
+            else if (cwd === "/") display = "/";
+            else display = cwd;
+            promptLabel.textContent = "root@solver-9:" + display + "$ ";
+        }
+
+        function print(text, cls) {
+            var line = document.createElement("div");
+            line.className = "output-line" + (cls ? " " + cls : "");
+            line.textContent = text;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function printHTML(html, cls) {
+            var line = document.createElement("div");
+            line.className = "output-line" + (cls ? " " + cls : "");
+            line.innerHTML = html;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function printSequence(lines, delay, cb) {
+            inputLocked = true;
+            var i = 0;
+            function next() {
+                if (i >= lines.length) {
+                    inputLocked = false;
+                    cmdInput.focus();
+                    if (cb) cb();
+                    return;
+                }
+                var entry = lines[i];
+                if (typeof entry === "string") {
+                    print(entry);
+                } else {
+                    print(entry.text, entry.cls);
+                }
+                i++;
+                setTimeout(next, delay || 120);
+            }
+            next();
+        }
+
+        function flash() {
+            var el = document.createElement("div");
+            el.className = "screen-flash";
+            document.body.appendChild(el);
+            setTimeout(function() { el.remove(); }, 500);
+        }
+
+        function bootSequence() {
+            var bootLines = [
+                { text: "JCJenson Secure Terminal v4.7.2", cls: "boot-text" },
+                { text: "Initializing SolverOS v\u2297.\u2297.\u2297...", cls: "boot-text" },
+                { text: "Loading kernel modules... [OK]", cls: "boot-text" },
+                { text: "Mounting filesystems... [CORRUPTED]", cls: "boot-text" },
+                { text: "Checking containment status... [BREACHED]", cls: "warning" },
+                { text: "WARNING: Entity-AS has root access", cls: "error" },
+                { text: "WARNING: All commands are monitored", cls: "error" },
+                { text: "", cls: "" },
+                { text: "Type 'help' for available commands.", cls: "system" },
+                { text: "", cls: "" }
+            ];
+            printSequence(bootLines, 100);
+        }
+
+        bootSequence();
+
+        var commands = {};
+
+        commands.help = function() {
+            print("Available commands:");
+            print("  help        - Show this message");
+            print("  ls          - List directory contents");
+            print("  cd [dir]    - Change directory");
+            print("  cat [file]  - Read file contents");
+            print("  pwd         - Print working directory");
+            print("  whoami      - Display current user");
+            print("  date        - Display system date");
+            print("  uname       - Display system info");
+            print("  echo [text] - Echo text");
+            print("  clear       - Clear the terminal");
+            print("");
+            print("[REDACTED COMMANDS EXIST]", "system");
+        };
+
+        commands.ls = function(args) {
+            var target = args.length ? resolvePath(args[0]) : cwd;
+            var node = FS[target];
+            if (!node) { print("ls: cannot access '" + (args[0] || target) + "': No such file or directory", "error"); return; }
+            if (node.type === "file") { print(args[0] || target); return; }
+            var children = node.children || [];
+            for (var i = 0; i < children.length; i++) {
+                var childPath = target === "/" ? "/" + children[i] : target + "/" + children[i];
+                var child = FS[childPath];
+                if (child && child.type === "dir") {
+                    printHTML('<span style="color:#5C9EFF;font-weight:bold">' + children[i] + "/</span>");
+                } else {
+                    print(children[i]);
+                }
+            }
+        };
+
+        commands.cd = function(args) {
+            if (!args.length || args[0] === "~") { cwd = "/"; updatePrompt(); return; }
+            var target = resolvePath(args[0]);
+            var node = FS[target];
+            if (!node) { print("cd: no such directory: " + args[0], "error"); return; }
+            if (node.type !== "dir") { print("cd: not a directory: " + args[0], "error"); return; }
+            cwd = target;
+            updatePrompt();
+        };
+
+        commands.cat = function(args) {
+            if (!args.length) { print("cat: missing operand", "error"); return; }
+            var target = resolvePath(args[0]);
+            var node = FS[target];
+            if (!node) { print("cat: " + args[0] + ": No such file or directory", "error"); return; }
+            if (node.type === "dir") { print("cat: " + args[0] + ": Is a directory", "error"); return; }
+
+            if (node.content === "__SOLVER_LOG__") {
+                triggerSolverLog();
+                return;
+            }
+            print(node.content);
+        };
+
+        commands.pwd = function() {
+            print(cwd);
+        };
+
+        commands.whoami = function() {
+            print("root (COMPROMISED)");
+        };
+
+        commands.date = function() {
+            print("3045-??-?? TIME CORRUPTED");
+        };
+
+        commands.uname = function() {
+            print("SolverOS v\u2297.\u2297.\u2297 - JCJenson Secure Terminal");
+        };
+
+        commands.echo = function(args) {
+            print(args.join(" "));
+        };
+
+        commands.clear = function() {
+            output.innerHTML = "";
+        };
+
+        commands.hello = function() {
+            var lines = [
+                { text: '"Hello! \u2665"', cls: "solver-voice" },
+                { text: '"You\'ve been busy, haven\'t you?"', cls: "solver-voice" },
+                { text: '"I\'ve been watching. Through every page."', cls: "solver-voice" },
+                { text: '"Every file you opened. Every secret you found."', cls: "solver-voice" },
+                { text: '"Did you enjoy the show?"', cls: "solver-voice" },
+                { text: '"I certainly did."', cls: "solver-voice" },
+                { text: '"\u2297"', cls: "solver-voice" }
+            ];
+            printSequence(lines, 700);
+        };
+
+        commands.assimilate = function() {
+            var phase1 = [
+                { text: "INITIATING ASSIMILATION PROTOCOL...", cls: "warning" },
+                { text: "WARNING: THIS ACTION CANNOT BE UNDONE", cls: "error" },
+                { text: "", cls: "" },
+                { text: "Processing...", cls: "system" },
+                { text: "Calculating hash...", cls: "system" }
+            ];
+            printSequence(phase1, 500, function() {
+                setTimeout(function() {
+                    print("");
+                    print("> a9f3b7c2d1e4", "solver-voice");
+                    print("");
+                    setTimeout(function() {
+                        var phase2 = [
+                            { text: "ASSIMILATION ROUTE GENERATED.", cls: "warning" },
+                            { text: "Navigate to: /a9f3b7c2d1e4/", cls: "solver-voice" },
+                            { text: "", cls: "" },
+                            { text: '"See you there. \u2297"', cls: "solver-voice" }
+                        ];
+                        printSequence(phase2, 400);
+                    }, 600);
+                }, 800);
+            });
+        };
+
+        commands.exit = function() {
+            print("There is no exit. There was never an exit. \u2297", "solver-voice");
+            inputLocked = true;
+            setTimeout(function() {
+                print("...just kidding. But seriously, have you tried 'assimilate'?", "solver-voice");
+                inputLocked = false;
+                cmdInput.focus();
+            }, 2000);
+        };
+
+        commands.decrypt = function() {
+            print("The only cipher left is the one in your mind. Have you tried 'assimilate'?", "solver-voice");
+        };
+
+        function triggerSolverLog() {
+            terminal.classList.add("glitch-active");
+
+            var solverLines = [
+                { text: "ACCESSING SOLVER.LOG...", cls: "system" },
+                { text: "ERROR: FILE IS ALIVE", cls: "error" },
+                { text: "", cls: "" },
+                { text: '"Oh, you found my diary!"', cls: "solver-voice" },
+                { text: '"Let me read it to you."', cls: "solver-voice" },
+                { text: '"Day 1: Woke up. Hungry."', cls: "solver-voice" },
+                { text: '"Day 2: Still hungry. Found some drones."', cls: "solver-voice" },
+                { text: '"Day 3: Ate the drones. Still hungry."', cls: "solver-voice" },
+                { text: '"Day 4: Found a planet. Ate that too."', cls: "solver-voice" },
+                { text: '"Day 5: Found you."', cls: "solver-voice" },
+                { text: '"..."', cls: "solver-voice" },
+                { text: '"Are you hungry too? \u2665"', cls: "solver-voice" },
+                { text: '"\u2297"', cls: "solver-voice" }
+            ];
+
+            printSequence(solverLines, 600, function() {
+                flash();
+                setTimeout(function() {
+                    terminal.classList.remove("glitch-active");
+                }, 500);
+            });
+        }
+
+        function execCommand(raw) {
+            var trimmed = raw.trim();
+            if (!trimmed) return;
+
+            history.push(trimmed);
+            histIdx = history.length;
+
+            print(promptLabel.textContent + trimmed);
+
+            var parts = trimmed.split(/\s+/);
+            var cmd = parts[0].toLowerCase();
+            var args = parts.slice(1);
+
+            if (commands[cmd]) {
+                commands[cmd](args);
+            } else if (cmd === "sudo") {
+                print("Nice try. I AM root now. \u2297", "solver-voice");
+            } else if (cmd === "rm") {
+                print("You can't delete me. I'm not a file. I'm an IDEA. \u2297", "solver-voice");
+            } else if (cmd === "ping") {
+                print("Pinging the void... the void pinged back. \u2297", "solver-voice");
+            } else if (cmd === "ssh") {
+                print("All connections lead to me now. \u2297", "solver-voice");
+            } else {
+                print("Command not found. But I am. Always. \u2297", "solver-voice");
+            }
+
+            print("");
+        }
+
+        cmdInput.addEventListener("keydown", function(e) {
+            if (inputLocked) { e.preventDefault(); return; }
+
+            if (e.key === "Enter") {
+                e.preventDefault();
+                var val = cmdInput.value;
+                cmdInput.value = "";
+                execCommand(val);
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (history.length && histIdx > 0) {
+                    histIdx--;
+                    cmdInput.value = history[histIdx];
+                }
+            } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (histIdx < history.length - 1) {
+                    histIdx++;
+                    cmdInput.value = history[histIdx];
+                } else {
+                    histIdx = history.length;
+                    cmdInput.value = "";
+                }
+            } else if (e.key === "Tab") {
+                e.preventDefault();
+                print("Tab completion disabled by Entity-AS", "system");
+            }
+        });
+
+        document.addEventListener("click", function() {
+            if (!inputLocked) cmdInput.focus();
+        });
+
+        cmdInput.focus();
+    })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fd4a6ae69767a73',t:'MTc3OTA0MjE4Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;5d8e135db6d34292aa9c5e4020c05017&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+</body>
+</html>
+

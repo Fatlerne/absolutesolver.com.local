@@ -1,0 +1,27 @@
+/* TEAM */
+Company: JCJenson (in SPAAAAACE!)
+Division: Applied Sciences - Sublevel-7 Research
+Site: absolutesolver.com
+Location: Copper-9 Orbital Station
+
+/* PERSONNEL */
+Project Lead: Dr. [REDACTED]
+Employee ID: 4A-43-4A-45-4E-53-4F-4E
+(That's hex for JCJENSON)
+
+Research Director: Dr. [REDACTED]  
+Employee ID: 63-66-6C-61-62
+(hex for "cflab")
+
+Security Officer: [REDACTED]
+Employee ID: 37-61-32-64
+(hex for "7a2d")
+
+Subject Handler: Tessa Elliott
+Employee ID: 43-59-4E-2D-30-30-31
+(hex for "CYN-001")
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript
+Software: Custom JCJenson Internal Framework v4.7.2
+Build: 0x534F4C564552
