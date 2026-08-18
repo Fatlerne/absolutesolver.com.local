@@ -235,7 +235,6 @@ I decided to post this repository to be able to recreate the site. [absolutesolv
     │   └── 📄 type.wav
     ├── 📄 1764476138510.png
     ├── 📄 404.html
-    ├── 📄 error.log
     ├── 📄 favicon.ico
     ├── 📄 humans.txt
     ├── 📄 index.html
